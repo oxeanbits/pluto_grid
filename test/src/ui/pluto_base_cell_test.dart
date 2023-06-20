@@ -197,7 +197,7 @@ void main() {
   });
 
   testWidgets(
-      'WHEN If it is CurrentCell with custom type without custom cell'
+      'WHEN If it is CurrentCell with a custom type without custom cell'
       'THEN [TextCellWidget] should be rendered', (WidgetTester tester) async {
     // given
     final PlutoCell cell = PlutoCell(value: 'cell value');
