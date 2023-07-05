@@ -63,12 +63,6 @@ mixin PopupCellState<T extends PopupCell> on State<T>
           widget.column.formattedValueForDisplayInEditing(widget.cell.value);
 
     textFocus = FocusNode(onKey: _handleKeyboardFocusOnKey);
-
-    textFocus.addListener(() {
-      if (!textFocus.hasFocus) {
-        handleSelected(textController.text);
-      }
-    });
   }
 
   @override
