@@ -14,11 +14,42 @@ abstract class PlutoColumnMenuDelegate<T> {
     required bool mounted,
     required T? selected,
   });
+
+  Future<T?>? showColumnMenu<T>({
+    required BuildContext context,
+    required Offset position,
+    required List<PopupMenuEntry<T>> items,
+    Color backgroundColor = Colors.white,
+  });
 }
 
 class PlutoColumnMenuDelegateDefault
     implements PlutoColumnMenuDelegate<PlutoGridColumnMenuItem> {
   const PlutoColumnMenuDelegateDefault();
+
+  @override
+  Future<PlutoGridColumnMenuItem?>? showColumnMenu<PlutoGridColumnMenuItem>({
+    required BuildContext context,
+    required Offset position,
+    required List<PopupMenuEntry<PlutoGridColumnMenuItem>> items,
+    Color backgroundColor = Colors.white,
+  }) {
+    final RenderBox overlay =
+        Overlay.of(context).context.findRenderObject() as RenderBox;
+
+    return showMenu<PlutoGridColumnMenuItem>(
+      context: context,
+      color: backgroundColor,
+      position: RelativeRect.fromLTRB(
+        position.dx,
+        position.dy,
+        position.dx + overlay.size.width,
+        position.dy + overlay.size.height,
+      ),
+      items: items,
+      useRootNavigator: true,
+    );
+  }
 
   @override
   List<PopupMenuEntry<PlutoGridColumnMenuItem>> buildMenuItems({
@@ -74,29 +105,37 @@ class PlutoColumnMenuDelegateDefault
   }
 }
 
-/// Open the context menu on the right side of the column.
-Future<T?>? showColumnMenu<T>({
-  required BuildContext context,
-  required Offset position,
-  required List<PopupMenuEntry<T>> items,
-  Color backgroundColor = Colors.white,
-}) {
-  final RenderBox overlay =
-      Overlay.of(context).context.findRenderObject() as RenderBox;
+// Open the context menu on the right side of the column.
 
-  return showMenu<T>(
-    context: context,
-    color: backgroundColor,
-    position: RelativeRect.fromLTRB(
-      position.dx,
-      position.dy,
-      position.dx + overlay.size.width,
-      position.dy + overlay.size.height,
-    ),
-    items: items,
-    useRootNavigator: true,
-  );
-}
+// Como sobreescrever esse método pra mostrar o widget que eu quero?
+
+// Como indicar o widget que eu quero de maneira não agressiva ao resto da aplicação?
+//  Talvez mudar e indicar na classe abstrata
+
+// Ele pode receber a lista de objetos mostráveis e ter outro método sobreescritivel capaz de selecionar qual vai ser, e como padrão seria esse aquis
+// @override
+// Future<PlutoGridColumnMenuItem?>? showColumnMenu<PlutoGridColumnMenuItem>({
+//   required BuildContext context,
+//   required Offset position,
+//   required List<PopupMenuEntry<PlutoGridColumnMenuItem>> items,
+//   Color backgroundColor = Colors.white,
+// }) {
+//   final RenderBox overlay =
+//       Overlay.of(context).context.findRenderObject() as RenderBox;
+
+//   return showMenu<PlutoGridColumnMenuItem>(
+//     context: context,
+//     color: backgroundColor,
+//     position: RelativeRect.fromLTRB(
+//       position.dx,
+//       position.dy,
+//       position.dx + overlay.size.width,
+//       position.dy + overlay.size.height,
+//     ),
+//     items: items,
+//     useRootNavigator: true,
+//   );
+// }
 
 List<PopupMenuEntry<PlutoGridColumnMenuItem>> _getDefaultColumnMenuItems({
   required PlutoGridStateManager stateManager,

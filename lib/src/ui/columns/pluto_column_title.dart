@@ -69,15 +69,24 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
   }
 
   void _showContextMenu(BuildContext context, Offset position) async {
-    final selected = await showColumnMenu(
+    final selected = stateManager.columnMenuDelegate.showColumnMenu(
       context: context,
       position: position,
-      backgroundColor: stateManager.style.menuBackgroundColor,
       items: stateManager.columnMenuDelegate.buildMenuItems(
         stateManager: stateManager,
         column: widget.column,
       ),
     );
+
+    // final selected = await showColumnMenu(
+    //   context: context,
+    //   position: position,
+    //   backgroundColor: stateManager.style.menuBackgroundColor,
+    // items: stateManager.columnMenuDelegate.buildMenuItems(
+    //   stateManager: stateManager,
+    //   column: widget.column,
+    // ),
+    // );
 
     if (context.mounted) {
       stateManager.columnMenuDelegate.onSelected(
@@ -190,6 +199,8 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
 
 class PlutoGridColumnIcon extends StatelessWidget {
   final PlutoColumnSort? sort;
+
+  // colocar icon de filter aqui?
 
   final Color color;
 
