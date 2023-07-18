@@ -95,6 +95,13 @@ mixin TextCellState<T extends TextCell> on State<T> implements TextFieldProps {
     super.dispose();
   }
 
+  void _handleFocusChange() {
+    if (!cellFocus.hasFocus) {
+      _handleOnComplete();
+      widget.stateManager.setEditing(false);
+    }
+  }
+
   void _restoreText() {
     if (_cellEditingStatus.isNotChanged) {
       return;
@@ -256,13 +263,6 @@ mixin TextCellState<T extends TextCell> on State<T> implements TextFieldProps {
       textAlignVertical: TextAlignVertical.center,
       textAlign: widget.column.textAlign.value,
     );
-  }
-}
-
-void _handleFocusChange() {
-  if (!cellFocus.hasFocus) {
-    _handleOnComplete();
-    widget.stateManager.setEditing(false);
   }
 }
 
