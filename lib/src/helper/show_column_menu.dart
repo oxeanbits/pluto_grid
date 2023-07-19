@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
 abstract class PlutoColumnMenuDelegate<T> {
-  List<PopupMenuEntry<T>> buildMenuItems({
+  List<Widget> buildMenuItems({
     required PlutoGridStateManager stateManager,
     required PlutoColumn column,
   });
@@ -15,10 +15,10 @@ abstract class PlutoColumnMenuDelegate<T> {
     required T? selected,
   });
 
-  Future<T?>? showColumnMenu<T>({
+  Future<T?>? showColumnMenu({
     required BuildContext context,
     required Offset position,
-    required List<PopupMenuEntry<T>> items,
+    required List<Widget> items,
     Color backgroundColor = Colors.white,
   });
 }
@@ -28,14 +28,17 @@ class PlutoColumnMenuDelegateDefault
   const PlutoColumnMenuDelegateDefault();
 
   @override
-  Future<PlutoGridColumnMenuItem?>? showColumnMenu<PlutoGridColumnMenuItem>({
+  Future<PlutoGridColumnMenuItem?>? showColumnMenu({
     required BuildContext context,
     required Offset position,
-    required List<PopupMenuEntry<PlutoGridColumnMenuItem>> items,
+    required List<Widget> items,
     Color backgroundColor = Colors.white,
   }) {
     final RenderBox overlay =
         Overlay.of(context).context.findRenderObject() as RenderBox;
+
+    final List<PopupMenuEntry<PlutoGridColumnMenuItem>> finalItems =
+        items.cast<PopupMenuEntry<PlutoGridColumnMenuItem>>();
 
     return showMenu<PlutoGridColumnMenuItem>(
       context: context,
@@ -46,7 +49,7 @@ class PlutoColumnMenuDelegateDefault
         position.dx + overlay.size.width,
         position.dy + overlay.size.height,
       ),
-      items: items,
+      items: finalItems,
       useRootNavigator: true,
     );
   }
@@ -104,38 +107,6 @@ class PlutoColumnMenuDelegateDefault
     }
   }
 }
-
-// Open the context menu on the right side of the column.
-
-// Como sobreescrever esse método pra mostrar o widget que eu quero?
-
-// Como indicar o widget que eu quero de maneira não agressiva ao resto da aplicação?
-//  Talvez mudar e indicar na classe abstrata
-
-// Ele pode receber a lista de objetos mostráveis e ter outro método sobreescritivel capaz de selecionar qual vai ser, e como padrão seria esse aquis
-// @override
-// Future<PlutoGridColumnMenuItem?>? showColumnMenu<PlutoGridColumnMenuItem>({
-//   required BuildContext context,
-//   required Offset position,
-//   required List<PopupMenuEntry<PlutoGridColumnMenuItem>> items,
-//   Color backgroundColor = Colors.white,
-// }) {
-//   final RenderBox overlay =
-//       Overlay.of(context).context.findRenderObject() as RenderBox;
-
-//   return showMenu<PlutoGridColumnMenuItem>(
-//     context: context,
-//     color: backgroundColor,
-//     position: RelativeRect.fromLTRB(
-//       position.dx,
-//       position.dy,
-//       position.dx + overlay.size.width,
-//       position.dy + overlay.size.height,
-//     ),
-//     items: items,
-//     useRootNavigator: true,
-//   );
-// }
 
 List<PopupMenuEntry<PlutoGridColumnMenuItem>> _getDefaultColumnMenuItems({
   required PlutoGridStateManager stateManager,

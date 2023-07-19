@@ -69,8 +69,7 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
   }
 
   void _showContextMenu(BuildContext context, Offset position) async {
-    List<PopupMenuEntry<dynamic>> items =
-        stateManager.columnMenuDelegate.buildMenuItems(
+    List<Widget> items = stateManager.columnMenuDelegate.buildMenuItems(
       stateManager: stateManager,
       column: widget.column,
     );
@@ -80,16 +79,6 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
       position: position,
       items: items,
     );
-
-    // final selected = await showColumnMenu(
-    //   context: context,
-    //   position: position,
-    //   backgroundColor: stateManager.style.menuBackgroundColor,
-    // items: stateManager.columnMenuDelegate.buildMenuItems(
-    //   stateManager: stateManager,
-    //   column: widget.column,
-    // ),
-    // );
 
     if (context.mounted) {
       stateManager.columnMenuDelegate.onSelected(
