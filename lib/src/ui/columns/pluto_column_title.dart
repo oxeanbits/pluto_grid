@@ -74,7 +74,7 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
       column: widget.column,
     );
 
-    final selected = stateManager.columnMenuDelegate.showColumnMenu(
+    final selected = await stateManager.columnMenuDelegate.showColumnMenu(
       context: context,
       position: position,
       items: items,
