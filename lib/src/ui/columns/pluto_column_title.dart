@@ -192,8 +192,6 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
 class PlutoGridColumnIcon extends StatelessWidget {
   final PlutoColumnSort? sort;
 
-  // colocar icon de filter aqui?
-
   final Color color;
 
   final IconData icon;
