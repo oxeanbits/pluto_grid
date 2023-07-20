@@ -69,7 +69,7 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
   }
 
   void _showContextMenu(BuildContext context, Offset position) async {
-    List<Widget> items = stateManager.columnMenuDelegate.buildMenuItems(
+    List<PopupMenuEntry> items = stateManager.columnMenuDelegate.buildMenuItems(
       stateManager: stateManager,
       column: widget.column,
     );

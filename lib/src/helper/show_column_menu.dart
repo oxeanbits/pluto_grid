@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
 abstract class PlutoColumnMenuDelegate<T> {
-  List<Widget> buildMenuItems({
+  List<PopupMenuEntry<T>> buildMenuItems({
     required PlutoGridStateManager stateManager,
     required PlutoColumn column,
   });
@@ -18,7 +18,7 @@ abstract class PlutoColumnMenuDelegate<T> {
   Future<T?>? showColumnMenu({
     required BuildContext context,
     required Offset position,
-    required List<Widget> items,
+    required List<PopupMenuEntry> items,
     Color backgroundColor = Colors.white,
   });
 }
