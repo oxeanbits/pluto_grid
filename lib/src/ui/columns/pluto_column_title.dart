@@ -123,10 +123,33 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
     _isPointMoving = false;
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _titleIcons() {
     final style = stateManager.configuration.style;
 
+    return Row(
+      children: [
+        stateManager.columnMenuDelegate.auxiliarIconIndicator(widget.column) ??
+            Container(),
+        IconButton(
+          icon: PlutoGridColumnIcon(
+            sort: _sort,
+            color: style.iconColor,
+            icon: widget.column.enableContextMenu
+                ? style.columnContextIcon
+                : style.columnResizeIcon,
+            ascendingIcon: style.columnAscendingIcon,
+            descendingIcon: style.columnDescendingIcon,
+          ),
+          iconSize: style.iconSize,
+          mouseCursor: contextMenuCursor,
+          onPressed: null,
+        ),
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final columnWidget = _SortableWidget(
       stateManager: stateManager,
       column: widget.column,
@@ -141,20 +164,7 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
       height: widget.height,
       child: Align(
         alignment: Alignment.center,
-        child: IconButton(
-          icon: PlutoGridColumnIcon(
-            sort: _sort,
-            color: style.iconColor,
-            icon: widget.column.enableContextMenu
-                ? style.columnContextIcon
-                : style.columnResizeIcon,
-            ascendingIcon: style.columnAscendingIcon,
-            descendingIcon: style.columnDescendingIcon,
-          ),
-          iconSize: style.iconSize,
-          mouseCursor: contextMenuCursor,
-          onPressed: null,
-        ),
+        child: _titleIcons(),
       ),
     );
 
