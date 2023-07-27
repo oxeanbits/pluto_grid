@@ -783,5 +783,5 @@ class _TestColumnMenu implements PlutoColumnMenuDelegate {
   }
 
   @override
-  Widget? auxiliarIconIndicator(_) => null;
+  Widget? auxiliarWidgetIndicator(_) => null;
 }

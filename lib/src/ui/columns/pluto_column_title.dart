@@ -128,7 +128,9 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
 
     return Row(
       children: [
-        stateManager.columnMenuDelegate.auxiliarIconIndicator(widget.column) ??
+        stateManager.columnMenuDelegate.auxiliarWidgetIndicator(
+              widget.column,
+            ) ??
             Container(),
         IconButton(
           icon: PlutoGridColumnIcon(

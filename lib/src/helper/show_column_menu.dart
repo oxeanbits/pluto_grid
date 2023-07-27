@@ -22,7 +22,7 @@ abstract class PlutoColumnMenuDelegate<T> {
     Color backgroundColor = Colors.white,
   });
 
-  Widget? auxiliarIconIndicator(PlutoColumn column);
+  Widget? auxiliarWidgetIndicator(PlutoColumn column);
 }
 
 class PlutoColumnMenuDelegateDefault
@@ -110,7 +110,7 @@ class PlutoColumnMenuDelegateDefault
   }
 
   @override
-  Widget? auxiliarIconIndicator(PlutoColumn column) => null;
+  Widget? auxiliarWidgetIndicator(PlutoColumn column) => null;
 }
 
 List<PopupMenuEntry<PlutoGridColumnMenuItem>> _getDefaultColumnMenuItems({
