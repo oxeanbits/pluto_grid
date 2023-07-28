@@ -126,12 +126,18 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
   Widget _titleIcons() {
     final style = stateManager.configuration.style;
 
+    Widget? auxiliarIndicator;
+
+    try {
+      auxiliarIndicator = stateManager.columnMenuDelegate
+          .auxiliarWidgetIndicator(widget.column);
+    } catch (e) {
+      auxiliarIndicator = Container();
+    }
+
     return Row(
       children: [
-        stateManager.columnMenuDelegate.auxiliarWidgetIndicator(
-              widget.column,
-            ) ??
-            Container(),
+        auxiliarIndicator ?? Container(),
         IconButton(
           icon: PlutoGridColumnIcon(
             sort: _sort,
