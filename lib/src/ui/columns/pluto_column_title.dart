@@ -126,18 +126,17 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
   Widget _titleIcons() {
     final style = stateManager.configuration.style;
 
-    Widget? auxiliarIndicator;
+    Widget? leadingIcon;
 
     try {
-      auxiliarIndicator =
-          stateManager.columnMenuDelegate.leadingIcon(widget.column);
+      leadingIcon = stateManager.columnMenuDelegate.leadingIcon(widget.column);
     } catch (e) {
-      auxiliarIndicator = Container();
+      leadingIcon = Container();
     }
 
     return Row(
       children: [
-        auxiliarIndicator ?? Container(),
+        leadingIcon ?? Container(),
         IconButton(
           icon: PlutoGridColumnIcon(
             sort: _sort,
@@ -393,6 +392,15 @@ class _ColumnWidget extends StatelessWidget {
       builder: (dragContext, candidate, rejected) {
         final bool noDragTarget = candidate.isEmpty;
 
+        bool hasLeadingIcon = false;
+
+        try {
+          hasLeadingIcon =
+              stateManager.columnMenuDelegate.leadingIcon(column) != null;
+        } catch (e) {
+          hasLeadingIcon = false;
+        }
+
         final style = stateManager.style;
 
         return SizedBox(
@@ -410,7 +418,8 @@ class _ColumnWidget extends StatelessWidget {
                     : BorderSide.none,
               ),
             ),
-            child: Padding(
+            child: Container(
+              margin: hasLeadingIcon ? const EdgeInsets.only(right: 25) : null,
               padding: padding,
               child: Align(
                 alignment: Alignment.centerLeft,
