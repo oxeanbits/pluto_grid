@@ -119,7 +119,7 @@ class _UserColumnMenu implements PlutoColumnMenuDelegate<_UserColumnMenuItem> {
   }
 
   @override
-  Widget? auxiliarWidgetIndicator(PlutoColumn column) => null;
+  Widget? leadingIcon(PlutoColumn column) => null;
 }
 
 enum _UserColumnMenuItem {

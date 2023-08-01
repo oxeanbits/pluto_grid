@@ -129,8 +129,8 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
     Widget? auxiliarIndicator;
 
     try {
-      auxiliarIndicator = stateManager.columnMenuDelegate
-          .auxiliarWidgetIndicator(widget.column);
+      auxiliarIndicator =
+          stateManager.columnMenuDelegate.leadingIcon(widget.column);
     } catch (e) {
       auxiliarIndicator = Container();
     }
