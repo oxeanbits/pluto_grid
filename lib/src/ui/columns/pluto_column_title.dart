@@ -182,7 +182,7 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
           right: 0,
           child: widget.column.enableColumnDrag
               ? Container(
-                  color: Colors.pink,
+                  color: Colors.orange,
                   child: _DraggableWidget(
                     stateManager: stateManager,
                     column: widget.column,
@@ -192,9 +192,7 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
               : columnWidget,
         ),
         if (showContextIcon)
-          Positioned.directional(
-            textDirection: stateManager.textDirection,
-            end: 5,
+          Positioned(
             child: enableGesture
                 ? Container(
                     color: Colors.red,
@@ -298,7 +296,7 @@ class _DraggableWidget extends StatelessWidget {
         data: column,
         dragAnchorStrategy: pointerDragAnchorStrategy,
         feedback: FractionalTranslation(
-          translation: const Offset(-0.5, -0.5),
+          translation: const Offset(0, 0),
           child: PlutoShadowContainer(
             alignment: column.titleTextAlign.alignmentValue,
             width: PlutoGridSettings.minColumnWidth,
