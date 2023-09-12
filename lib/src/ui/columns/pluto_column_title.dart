@@ -344,7 +344,10 @@ class _SortableWidget extends StatelessWidget {
             child: GestureDetector(
               key: const ValueKey('ColumnTitleSortableGesture'),
               onTap: _onTap,
-              child: child,
+              child: Container(
+                color: Colors.red,
+                child: Text('aaaaaaaaa'),
+              ),
             ),
           )
         : child;
@@ -594,7 +597,7 @@ class _ColumnTextWidgetState extends PlutoStateWithChange<_ColumnTextWidget> {
   Widget build(BuildContext context) {
     return Text.rich(
       TextSpan(
-        text: '_title',
+        text: _title,
         children: _children,
       ),
       style: stateManager.configuration.style.columnTextStyle,
