@@ -175,25 +175,9 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
       ),
     );
 
-    return Stack(
-      children: [
-        if (showContextIcon)
-          Positioned.directional(
-            textDirection: stateManager.textDirection,
-            end: 5,
-            child: enableGesture
-                ? Container(
-                    color: Colors.red,
-                    child: Listener(
-                      onPointerDown: _handleOnPointDown,
-                      onPointerMove: _handleOnPointMove,
-                      onPointerUp: _handleOnPointUp,
-                      child: contextMenuIcon,
-                    ),
-                  )
-                : contextMenuIcon,
-          ),
-      ],
+    return Container(
+      child: Text('Oi'),
+      color: Colors.red,
     );
   }
 }
