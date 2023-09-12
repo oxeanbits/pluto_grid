@@ -364,9 +364,7 @@ class _ColumnWidget extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  EdgeInsets get padding =>
-      column.titlePadding ??
-      stateManager.configuration.style.defaultColumnTitlePadding;
+  EdgeInsets get padding => column.titlePadding ?? EdgeInsets.all(0);
 
   bool get showSizedBoxForIcon =>
       column.isShowRightIcon &&
