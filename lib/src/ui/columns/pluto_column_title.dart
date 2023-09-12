@@ -175,23 +175,23 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
       ),
     );
 
-    return Stack(
-      children: [
-        Positioned(
-          left: 0,
-          right: 0,
-          child: widget.column.enableColumnDrag
-              ? _DraggableWidget(
-                  stateManager: stateManager,
-                  column: widget.column,
-                  child: columnWidget,
-                )
-              : columnWidget,
-        ),
-        if (showContextIcon)
-          Container(
-            color: Colors.yellow,
-            child: Positioned.directional(
+    return Container(
+      color: Colors.blue,
+      child: Stack(
+        children: [
+          Positioned(
+            left: 0,
+            right: 0,
+            child: widget.column.enableColumnDrag
+                ? _DraggableWidget(
+                    stateManager: stateManager,
+                    column: widget.column,
+                    child: columnWidget,
+                  )
+                : columnWidget,
+          ),
+          if (showContextIcon)
+            Positioned.directional(
               textDirection: stateManager.textDirection,
               end: 10,
               child: enableGesture
@@ -206,8 +206,8 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
                     )
                   : contextMenuIcon,
             ),
-          ),
-      ],
+        ],
+      ),
     );
   }
 }
