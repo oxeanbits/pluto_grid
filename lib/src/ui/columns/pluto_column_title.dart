@@ -191,6 +191,7 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
         if (showContextIcon)
           Positioned.directional(
             textDirection: stateManager.textDirection,
+            end: 10,
             child: enableGesture
                 ? Listener(
                     onPointerDown: _handleOnPointDown,
