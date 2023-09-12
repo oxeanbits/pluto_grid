@@ -189,17 +189,21 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
               : columnWidget,
         ),
         if (showContextIcon)
-          enableGesture
-              ? Container(
-                  color: Colors.red,
-                  child: Listener(
-                    onPointerDown: _handleOnPointDown,
-                    onPointerMove: _handleOnPointMove,
-                    onPointerUp: _handleOnPointUp,
-                    child: contextMenuIcon,
-                  ),
-                )
-              : contextMenuIcon,
+          Positioned.directional(
+            textDirection: stateManager.textDirection,
+            end: 5,
+            child: enableGesture
+                ? Container(
+                    color: Colors.red,
+                    child: Listener(
+                      onPointerDown: _handleOnPointDown,
+                      onPointerMove: _handleOnPointMove,
+                      onPointerUp: _handleOnPointUp,
+                      child: contextMenuIcon,
+                    ),
+                  )
+                : contextMenuIcon,
+          ),
       ],
     );
   }
@@ -364,7 +368,9 @@ class _ColumnWidget extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  EdgeInsets get padding => column.titlePadding ?? EdgeInsets.all(0);
+  EdgeInsets get padding =>
+      column.titlePadding ??
+      stateManager.configuration.style.defaultColumnTitlePadding;
 
   bool get showSizedBoxForIcon =>
       column.isShowRightIcon &&
