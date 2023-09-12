@@ -234,7 +234,7 @@ class PlutoGridColumnIcon extends StatelessWidget {
             ? Transform.rotate(
                 angle: 90 * pi / 90,
                 child: const Icon(
-                  Icons.sort,
+                  Icons.abc,
                   color: Colors.green,
                 ),
               )
@@ -242,7 +242,7 @@ class PlutoGridColumnIcon extends StatelessWidget {
       case PlutoColumnSort.descending:
         return descendingIcon == null
             ? const Icon(
-                Icons.sort,
+                Icons.car_crash,
                 color: Colors.red,
               )
             : descendingIcon!;
