@@ -175,9 +175,36 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
       ),
     );
 
-    return Container(
-      child: Text('Oi'),
-      color: Colors.red,
+    return Stack(
+      children: [
+        Positioned(
+          left: 0,
+          right: 0,
+          child: widget.column.enableColumnDrag
+              ? _DraggableWidget(
+                  stateManager: stateManager,
+                  column: widget.column,
+                  child: columnWidget,
+                )
+              : columnWidget,
+        ),
+        if (showContextIcon)
+          Positioned.directional(
+            textDirection: stateManager.textDirection,
+            end: 6,
+            child: enableGesture
+                ? Container(
+                    color: Colors.red,
+                    child: Listener(
+                      onPointerDown: _handleOnPointDown,
+                      onPointerMove: _handleOnPointMove,
+                      onPointerUp: _handleOnPointUp,
+                      child: contextMenuIcon,
+                    ),
+                  )
+                : contextMenuIcon,
+          ),
+      ],
     );
   }
 }
@@ -351,10 +378,7 @@ class _ColumnWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        color: Colors.orange,
-        child: Text(
-            'OIII')); /* DragTarget<PlutoColumn>(
+    return DragTarget<PlutoColumn>(
       onWillAccept: (PlutoColumn? columnToDrag) {
         return columnToDrag != null &&
             columnToDrag.key != column.key &&
@@ -421,7 +445,7 @@ class _ColumnWidget extends StatelessWidget {
           ),
         );
       },
-    );*/
+    );
   }
 }
 
