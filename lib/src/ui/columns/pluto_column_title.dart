@@ -422,10 +422,10 @@ class _ColumnWidget extends StatelessWidget {
               ),
             ),
             child: Container(
-              margin: hasLeadingIcon ? const EdgeInsets.only(right: 0) : null,
-              padding: padding,
+              //   margin: hasLeadingIcon ? const EdgeInsets.only(right: 0) : null,
+              //   padding: padding,
               child: Align(
-                alignment: Alignment.centerLeft,
+                alignment: Alignment.centerRight,
                 child: Row(
                   children: [
                     if (column.enableRowChecked)
