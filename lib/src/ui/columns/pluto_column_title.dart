@@ -178,20 +178,21 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
     return Stack(
       children: [
         Positioned(
-          left: 0,
-          right: 0,
-          child: widget.column.enableColumnDrag
+            left: 0,
+            right: 0,
+            child: Text(
+                'meu teste') /*widget.column.enableColumnDrag
               ? _DraggableWidget(
                   stateManager: stateManager,
                   column: widget.column,
                   child: columnWidget,
                 )
-              : columnWidget,
-        ),
+              : columnWidget,*/
+            ),
         if (showContextIcon)
           Positioned.directional(
             textDirection: stateManager.textDirection,
-            end: 10,
+            end: 5,
             child: enableGesture
                 ? Container(
                     color: Colors.red,
