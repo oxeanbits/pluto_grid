@@ -192,7 +192,9 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
               : columnWidget,
         ),
         if (showContextIcon)
-          Positioned(
+          Positioned.directional(
+            textDirection: stateManager.textDirection,
+            end: 5,
             child: enableGesture
                 ? Container(
                     color: Colors.red,
@@ -423,7 +425,7 @@ class _ColumnWidget extends StatelessWidget {
               ),
             ),
             child: Container(
-              margin: hasLeadingIcon ? const EdgeInsets.only(right: 0) : null,
+              margin: const EdgeInsets.only(right: 0),
               padding: padding,
               child: Align(
                 alignment: Alignment.centerLeft,
