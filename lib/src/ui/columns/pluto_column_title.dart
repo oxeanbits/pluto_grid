@@ -170,41 +170,41 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
     final contextMenuIcon = SizedBox(
       height: widget.height,
       child: Align(
-        alignment: Alignment.center,
+        alignment: Alignment.centerRight,
         child: _titleIcons(),
       ),
     );
 
-    return Container(
-      color: Colors.blue,
-      child: Stack(
-        children: [
-          Positioned(
-            left: 0,
-            right: 0,
-            child: widget.column.enableColumnDrag
-                ? _DraggableWidget(
-                    stateManager: stateManager,
-                    column: widget.column,
-                    child: columnWidget,
-                  )
-                : columnWidget,
-          ),
-          if (showContextIcon)
-            Positioned.directional(
-              textDirection: stateManager.textDirection,
-              end: 10,
-              child: enableGesture
-                  ? Listener(
+    return Stack(
+      children: [
+        Positioned(
+          left: 0,
+          right: 0,
+          child: widget.column.enableColumnDrag
+              ? _DraggableWidget(
+                  stateManager: stateManager,
+                  column: widget.column,
+                  child: columnWidget,
+                )
+              : columnWidget,
+        ),
+        if (showContextIcon)
+          Positioned.directional(
+            textDirection: stateManager.textDirection,
+            end: 10,
+            child: enableGesture
+                ? Container(
+                    color: Colors.red,
+                    child: Listener(
                       onPointerDown: _handleOnPointDown,
                       onPointerMove: _handleOnPointMove,
                       onPointerUp: _handleOnPointUp,
                       child: contextMenuIcon,
-                    )
-                  : contextMenuIcon,
-            ),
-        ],
-      ),
+                    ),
+                  )
+                : contextMenuIcon,
+          ),
+      ],
     );
   }
 }
