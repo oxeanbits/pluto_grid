@@ -191,7 +191,7 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
         if (showContextIcon)
           Positioned.directional(
             textDirection: stateManager.textDirection,
-            end: 5,
+            end: 0,
             child: enableGesture
                 ? Listener(
                     onPointerDown: _handleOnPointDown,
@@ -302,7 +302,7 @@ class _DraggableWidget extends StatelessWidget {
             borderColor:
                 stateManager.configuration.style.gridBorderColor ?? Colors.red,
             child: Text(
-              'column.title',
+              column.title,
               style: stateManager.configuration.style.columnTextStyle.copyWith(
                 fontSize: 12,
               ),
@@ -344,10 +344,7 @@ class _SortableWidget extends StatelessWidget {
             child: GestureDetector(
               key: const ValueKey('ColumnTitleSortableGesture'),
               onTap: _onTap,
-              child: Container(
-                color: Colors.red,
-                child: Text('aaaaaaaaa'),
-              ),
+              child: child,
             ),
           )
         : child;
