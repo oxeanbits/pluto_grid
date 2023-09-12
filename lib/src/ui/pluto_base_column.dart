@@ -75,9 +75,12 @@ class PlutoBaseColumnState extends PlutoStateWithChange<PlutoBaseColumn> {
             bottom: 0,
             right: 0,
             left: 0,
-            child: PlutoColumnFilter(
-              stateManager: stateManager,
-              column: widget.column,
+            child: Container(
+              color: Colors.orange,
+              child: PlutoColumnFilter(
+                stateManager: stateManager,
+                column: widget.column,
+              ),
             ),
           ),
       ],
