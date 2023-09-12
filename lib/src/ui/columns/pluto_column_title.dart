@@ -158,14 +158,17 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
   @override
   Widget build(BuildContext context) {
     final columnWidget = _SortableWidget(
-      stateManager: stateManager,
-      column: widget.column,
-      child: _ColumnWidget(
+        stateManager: stateManager,
+        column: widget.column,
+        child: Container(
+          color: Colors.orange,
+          child: Text("OI"),
+        ) /* _ColumnWidget(
         stateManager: stateManager,
         column: widget.column,
         height: widget.height,
-      ),
-    );
+      ),*/
+        );
 
     final contextMenuIcon = SizedBox(
       height: widget.height,
