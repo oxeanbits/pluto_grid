@@ -195,14 +195,11 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
               textDirection: stateManager.textDirection,
               end: 10,
               child: enableGesture
-                  ? Container(
-                      color: Colors.red,
-                      child: Listener(
-                        onPointerDown: _handleOnPointDown,
-                        onPointerMove: _handleOnPointMove,
-                        onPointerUp: _handleOnPointUp,
-                        child: contextMenuIcon,
-                      ),
+                  ? Listener(
+                      onPointerDown: _handleOnPointDown,
+                      onPointerMove: _handleOnPointMove,
+                      onPointerUp: _handleOnPointUp,
+                      child: contextMenuIcon,
                     )
                   : contextMenuIcon,
             ),
