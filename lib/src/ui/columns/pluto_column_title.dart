@@ -181,10 +181,13 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
           left: 0,
           right: 0,
           child: widget.column.enableColumnDrag
-              ? _DraggableWidget(
-                  stateManager: stateManager,
-                  column: widget.column,
-                  child: columnWidget,
+              ? Container(
+                  color: Colors.pink,
+                  child: _DraggableWidget(
+                    stateManager: stateManager,
+                    column: widget.column,
+                    child: columnWidget,
+                  ),
                 )
               : columnWidget,
         ),
@@ -193,11 +196,14 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
             textDirection: stateManager.textDirection,
             end: 5,
             child: enableGesture
-                ? Listener(
-                    onPointerDown: _handleOnPointDown,
-                    onPointerMove: _handleOnPointMove,
-                    onPointerUp: _handleOnPointUp,
-                    child: contextMenuIcon,
+                ? Container(
+                    color: Colors.red,
+                    child: Listener(
+                      onPointerDown: _handleOnPointDown,
+                      onPointerMove: _handleOnPointMove,
+                      onPointerUp: _handleOnPointUp,
+                      child: contextMenuIcon,
+                    ),
                   )
                 : contextMenuIcon,
           ),

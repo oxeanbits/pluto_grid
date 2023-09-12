@@ -61,13 +61,10 @@ class PlutoBaseColumnState extends PlutoStateWithChange<PlutoBaseColumn> {
           left: 0,
           right: 0,
           bottom: _showColumnFilter ? stateManager.columnFilterHeight : 0,
-          child: Container(
-            color: Colors.blue,
-            child: PlutoColumnTitle(
-              stateManager: stateManager,
-              column: widget.column,
-              height: widget.columnTitleHeight ?? stateManager.columnHeight,
-            ),
+          child: PlutoColumnTitle(
+            stateManager: stateManager,
+            column: widget.column,
+            height: widget.columnTitleHeight ?? stateManager.columnHeight,
           ),
         ),
         if (_showColumnFilter)
@@ -75,12 +72,9 @@ class PlutoBaseColumnState extends PlutoStateWithChange<PlutoBaseColumn> {
             bottom: 0,
             right: 0,
             left: 0,
-            child: Container(
-              color: Colors.orange,
-              child: PlutoColumnFilter(
-                stateManager: stateManager,
-                column: widget.column,
-              ),
+            child: PlutoColumnFilter(
+              stateManager: stateManager,
+              column: widget.column,
             ),
           ),
       ],
