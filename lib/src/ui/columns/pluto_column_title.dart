@@ -302,7 +302,7 @@ class _DraggableWidget extends StatelessWidget {
             borderColor:
                 stateManager.configuration.style.gridBorderColor ?? Colors.red,
             child: Text(
-              column.title,
+              'column.title',
               style: stateManager.configuration.style.columnTextStyle.copyWith(
                 fontSize: 12,
               ),
