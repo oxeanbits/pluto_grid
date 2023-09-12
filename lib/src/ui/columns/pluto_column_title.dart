@@ -189,20 +189,23 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
               : columnWidget,
         ),
         if (showContextIcon)
-          Positioned.directional(
-            textDirection: stateManager.textDirection,
-            end: 10,
-            child: enableGesture
-                ? Container(
-                    color: Colors.red,
-                    child: Listener(
-                      onPointerDown: _handleOnPointDown,
-                      onPointerMove: _handleOnPointMove,
-                      onPointerUp: _handleOnPointUp,
-                      child: contextMenuIcon,
-                    ),
-                  )
-                : contextMenuIcon,
+          Container(
+            color: Colors.yellow,
+            child: Positioned.directional(
+              textDirection: stateManager.textDirection,
+              end: 10,
+              child: enableGesture
+                  ? Container(
+                      color: Colors.red,
+                      child: Listener(
+                        onPointerDown: _handleOnPointDown,
+                        onPointerMove: _handleOnPointMove,
+                        onPointerUp: _handleOnPointUp,
+                        child: contextMenuIcon,
+                      ),
+                    )
+                  : contextMenuIcon,
+            ),
           ),
       ],
     );
