@@ -422,7 +422,7 @@ class _ColumnWidget extends StatelessWidget {
               ),
             ),
             child: Container(
-              margin: hasLeadingIcon ? const EdgeInsets.only(right: 5) : null,
+              margin: hasLeadingIcon ? const EdgeInsets.only(right: 0) : null,
               padding: padding,
               child: Align(
                 alignment: Alignment.centerLeft,
