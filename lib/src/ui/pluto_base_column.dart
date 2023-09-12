@@ -57,19 +57,16 @@ class PlutoBaseColumnState extends PlutoStateWithChange<PlutoBaseColumn> {
       fit: StackFit.expand,
       children: [
         Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: _showColumnFilter ? stateManager.columnFilterHeight : 0,
-            child: Container(
-              color: Colors.blue,
-              child: Text('SERÁ'),
-            ) /*PlutoColumnTitle(
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: _showColumnFilter ? stateManager.columnFilterHeight : 0,
+          child: PlutoColumnTitle(
             stateManager: stateManager,
             column: widget.column,
             height: widget.columnTitleHeight ?? stateManager.columnHeight,
-          ),*/
-            ),
+          ),
+        ),
         if (_showColumnFilter)
           Positioned(
             bottom: 0,
