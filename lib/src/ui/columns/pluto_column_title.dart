@@ -170,7 +170,7 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
     final contextMenuIcon = SizedBox(
       height: widget.height,
       child: Align(
-        alignment: Alignment.centerRight,
+        alignment: Alignment.center,
         child: _titleIcons(),
       ),
     );
@@ -181,13 +181,10 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
           left: 0,
           right: 0,
           child: widget.column.enableColumnDrag
-              ? Container(
-                  color: Colors.orange,
-                  child: _DraggableWidget(
-                    stateManager: stateManager,
-                    column: widget.column,
-                    child: columnWidget,
-                  ),
+              ? _DraggableWidget(
+                  stateManager: stateManager,
+                  column: widget.column,
+                  child: columnWidget,
                 )
               : columnWidget,
         ),
@@ -298,7 +295,7 @@ class _DraggableWidget extends StatelessWidget {
         data: column,
         dragAnchorStrategy: pointerDragAnchorStrategy,
         feedback: FractionalTranslation(
-          translation: const Offset(0, 0),
+          translation: const Offset(-0.5, -0.5),
           child: PlutoShadowContainer(
             alignment: column.titleTextAlign.alignmentValue,
             width: PlutoGridSettings.minColumnWidth,
@@ -425,7 +422,7 @@ class _ColumnWidget extends StatelessWidget {
               ),
             ),
             child: Container(
-              margin: const EdgeInsets.only(right: 0),
+              margin: hasLeadingIcon ? const EdgeInsets.only(right: 25) : null,
               padding: padding,
               child: Align(
                 alignment: Alignment.centerLeft,
