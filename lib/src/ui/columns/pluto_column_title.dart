@@ -151,14 +151,17 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
       onPressed: null,
     );
 
+    Widget dragging = MouseRegion(
+      cursor: contextMenuCursor,
+      hitTestBehavior: HitTestBehavior.opaque,
+      child: Container(width: 5),
+    );
+
     return Row(
       children: [
         leadingIcon ?? Container(),
         iconButton,
-        MouseRegion(
-          cursor: contextMenuCursor,
-          child: Container(width: 10),
-        )
+        dragging,
       ],
     );
   }
