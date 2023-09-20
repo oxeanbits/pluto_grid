@@ -147,7 +147,7 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
     Widget iconButton = IconButton(
       icon: icon,
       iconSize: style.iconSize,
-      mouseCursor: SystemMouseCursors.basic,
+      mouseCursor: SystemMouseCursors.click,
       onPressed: null,
     );
 
