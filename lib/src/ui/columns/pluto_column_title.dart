@@ -153,7 +153,7 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
 
     Widget dragging = MouseRegion(
       cursor: contextMenuCursor,
-      hitTestBehavior: HitTestBehavior.opaque,
+      hitTestBehavior: HitTestBehavior.translucent,
       child: Container(width: 5),
     );
 
@@ -208,6 +208,7 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
                     onPointerDown: _handleOnPointDown,
                     onPointerMove: _handleOnPointMove,
                     onPointerUp: _handleOnPointUp,
+                    behavior: HitTestBehavior.translucent,
                     child: contextMenuIcon,
                   )
                 : contextMenuIcon,
