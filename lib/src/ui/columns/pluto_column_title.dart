@@ -131,19 +131,18 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
     try {
       leadingIcon = stateManager.columnMenuDelegate.leadingIcon(widget.column);
     } catch (e) {
-      leadingIcon = null;
+      leadingIcon;
     }
 
-    Widget icon = leadingIcon ??
-        PlutoGridColumnIcon(
-          sort: _sort,
-          color: style.iconColor,
-          icon: widget.column.enableContextMenu
-              ? style.columnContextIcon
-              : style.columnResizeIcon,
-          ascendingIcon: style.columnAscendingIcon,
-          descendingIcon: style.columnDescendingIcon,
-        );
+    Widget icon = PlutoGridColumnIcon(
+      sort: _sort,
+      color: style.iconColor,
+      icon: widget.column.enableContextMenu
+          ? style.columnContextIcon
+          : style.columnResizeIcon,
+      ascendingIcon: style.columnAscendingIcon,
+      descendingIcon: style.columnDescendingIcon,
+    );
 
     Widget iconButton = IconButton(
       icon: icon,
@@ -154,6 +153,7 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
 
     return Row(
       children: [
+        leadingIcon ?? Container(),
         iconButton,
         MouseRegion(
           cursor: contextMenuCursor,
