@@ -147,7 +147,7 @@ void main() {
 
       const key = LogicalKeyboardKey.control;
       await tester.sendKeyDownEvent(key);
-      await tester.sendKeyUpEvent(LogicalKeyboardKey.keyC);
+      await tester.sendKeyDownEvent(LogicalKeyboardKey.keyC);
       expect(keyManagerEvent!.isCtrlC, true);
       await tester.sendKeyUpEvent(key);
     },
@@ -160,7 +160,7 @@ void main() {
 
       const key = LogicalKeyboardKey.control;
       await tester.sendKeyDownEvent(key);
-      await tester.sendKeyUpEvent(LogicalKeyboardKey.keyV);
+      await tester.sendKeyDownEvent(LogicalKeyboardKey.keyV);
       expect(keyManagerEvent!.isCtrlV, true);
       await tester.sendKeyUpEvent(key);
     },
@@ -173,7 +173,7 @@ void main() {
 
       const key = LogicalKeyboardKey.control;
       await tester.sendKeyDownEvent(key);
-      await tester.sendKeyUpEvent(LogicalKeyboardKey.keyA);
+      await tester.sendKeyDownEvent(LogicalKeyboardKey.keyA);
       expect(keyManagerEvent!.isCtrlA, true);
       await tester.sendKeyUpEvent(key);
     },
