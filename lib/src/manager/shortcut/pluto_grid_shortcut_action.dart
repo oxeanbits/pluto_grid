@@ -402,14 +402,13 @@ class PlutoGridActionDefaultEnterKey extends PlutoGridShortcutAction {
     PlutoGridStateManager stateManager,
   ) {
     final enterKeyAction = stateManager.configuration.enterKeyAction;
-    HardwareKeyboard instance = HardwareKeyboard.instance;
 
     if (enterKeyAction.isNone) {
       return;
     }
 
     if (enterKeyAction.isEditingAndMoveDown) {
-      if (instance.isShiftPressed) {
+      if (HardwareKeyboard.instance.isShiftPressed) {
         stateManager.moveCurrentCell(
           PlutoMoveDirection.up,
           notify: false,
@@ -421,7 +420,7 @@ class PlutoGridActionDefaultEnterKey extends PlutoGridShortcutAction {
         );
       }
     } else if (enterKeyAction.isEditingAndMoveRight) {
-      if (instance.isShiftPressed) {
+      if (HardwareKeyboard.instance.isShiftPressed) {
         stateManager.moveCurrentCell(
           PlutoMoveDirection.left,
           force: true,

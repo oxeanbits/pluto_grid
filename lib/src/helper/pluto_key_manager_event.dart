@@ -5,8 +5,6 @@ class PlutoKeyManagerEvent {
   FocusNode focusNode;
   KeyEvent event;
 
-  HardwareKeyboard instance = HardwareKeyboard.instance;
-
   PlutoKeyManagerEvent({
     required this.focusNode,
     required this.event,
@@ -96,15 +94,16 @@ class PlutoKeyManagerEvent {
   }
 
   bool get isShiftPressed {
-    return instance.isShiftPressed;
+    return HardwareKeyboard.instance.isShiftPressed;
   }
 
   bool get isCtrlPressed {
-    return instance.isMetaPressed || instance.isControlPressed;
+    return HardwareKeyboard.instance.isMetaPressed ||
+        HardwareKeyboard.instance.isControlPressed;
   }
 
   bool get isAltPressed {
-    return instance.isAltPressed;
+    return HardwareKeyboard.instance.isAltPressed;
   }
 
   bool get isModifierPressed {

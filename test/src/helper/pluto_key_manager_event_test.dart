@@ -146,10 +146,11 @@ void main() {
       await buildWidget(tester: tester, callback: callback);
 
       const key = LogicalKeyboardKey.control;
-      await tester.sendKeyDownEvent(key);
-      await tester.sendKeyDownEvent(LogicalKeyboardKey.keyC);
+      await simulateKeyDownEvent(key);
+      await simulateKeyDownEvent(LogicalKeyboardKey.keyC);
       expect(keyManagerEvent!.isCtrlC, true);
-      await tester.sendKeyUpEvent(key);
+      await simulateKeyUpEvent(LogicalKeyboardKey.keyC);
+      await simulateKeyUpEvent(key);
     },
   );
 
@@ -159,8 +160,8 @@ void main() {
       await buildWidget(tester: tester, callback: callback);
 
       const key = LogicalKeyboardKey.control;
-      await tester.sendKeyDownEvent(key);
-      await tester.sendKeyDownEvent(LogicalKeyboardKey.keyV);
+      await simulateKeyDownEvent(key);
+      await simulateKeyDownEvent(LogicalKeyboardKey.keyV);
       expect(keyManagerEvent!.isCtrlV, true);
       await tester.sendKeyUpEvent(key);
     },
