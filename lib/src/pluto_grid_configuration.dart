@@ -441,6 +441,8 @@ class PlutoGridStyleConfig {
   /// only the width of the column can be adjusted.
   final IconData columnResizeIcon;
 
+  /// If columnIconViewType of PlutoColumn is ColumnIconViewType.normal, always show icons
+  /// If columnIconViewType of PlutoColumn is ColumnIconViewType.hover, only show icons when hover column
   final ColumnIconViewType columnIconViewType;
 
   /// Ascending icon when sorting a column.

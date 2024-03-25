@@ -160,7 +160,7 @@ class _PlutoGridExamplePageState extends State<PlutoGridExamplePage> {
           },
           configuration: const PlutoGridConfiguration(
             style: PlutoGridStyleConfig(
-              columnIconViewType: ColumnIconViewType.hover,
+              columnIconViewType: ColumnIconViewType.normal,
             ),
           ),
         ),

@@ -159,8 +159,10 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
       child: Container(width: 5),
     );
 
-    bool alwaysShow =
+    bool isViewNormal =
         stateManager.configuration.style.columnIconViewType.isNormal;
+
+    bool alwaysShow = isViewNormal || isSortingIcon();
 
     return Visibility(
       visible: _isHoveringIcon || alwaysShow,
@@ -172,6 +174,18 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
         ],
       ),
     );
+  }
+
+  bool isSortingIcon() {
+    switch (_sort) {
+      case PlutoColumnSort.ascending:
+      case PlutoColumnSort.descending:
+        return true;
+
+      case PlutoColumnSort.none:
+      default:
+        return false;
+    }
   }
 
   @override
