@@ -30,6 +30,8 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
 
   PlutoColumnSort _sort = PlutoColumnSort.none;
 
+  bool _isHoveringIcon = false;
+
   bool get showContextIcon {
     return widget.column.enableContextMenu ||
         widget.column.enableDropToResize ||
@@ -157,12 +159,18 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
       child: Container(width: 5),
     );
 
-    return Row(
-      children: [
-        leadingIcon ?? Container(),
-        iconButton,
-        dragging,
-      ],
+    bool alwaysShow =
+        stateManager.configuration.style.columnIconViewType.isNormal;
+
+    return Visibility(
+      visible: _isHoveringIcon || alwaysShow,
+      child: Row(
+        children: [
+          leadingIcon ?? Container(),
+          iconButton,
+          dragging,
+        ],
+      ),
     );
   }
 
@@ -186,34 +194,51 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
       ),
     );
 
-    return Stack(
-      children: [
-        Positioned(
-          left: 0,
-          right: 0,
-          child: widget.column.enableColumnDrag
-              ? _DraggableWidget(
-                  stateManager: stateManager,
-                  column: widget.column,
-                  child: columnWidget,
-                )
-              : columnWidget,
-        ),
-        if (showContextIcon)
-          Positioned.directional(
-            textDirection: stateManager.textDirection,
-            end: 0,
-            child: enableGesture
-                ? Listener(
-                    onPointerDown: _handleOnPointDown,
-                    onPointerMove: _handleOnPointMove,
-                    onPointerUp: _handleOnPointUp,
-                    behavior: HitTestBehavior.translucent,
-                    child: contextMenuIcon,
-                  )
-                : contextMenuIcon,
-          ),
-      ],
+    return mouseHouverTitle(
+      Stack(
+        children: [
+          title(columnWidget),
+          if (showContextIcon) buildIcons(contextMenuIcon),
+        ],
+      ),
+    );
+  }
+
+  Widget mouseHouverTitle(Widget child) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHoveringIcon = true),
+      onExit: (_) => setState(() => _isHoveringIcon = false),
+      child: child,
+    );
+  }
+
+  Positioned buildIcons(SizedBox contextMenuIcon) {
+    return Positioned.directional(
+      textDirection: stateManager.textDirection,
+      end: 0,
+      child: enableGesture
+          ? Listener(
+              onPointerDown: _handleOnPointDown,
+              onPointerMove: _handleOnPointMove,
+              onPointerUp: _handleOnPointUp,
+              behavior: HitTestBehavior.translucent,
+              child: contextMenuIcon,
+            )
+          : contextMenuIcon,
+    );
+  }
+
+  Positioned title(_SortableWidget columnWidget) {
+    return Positioned(
+      left: 0,
+      right: 0,
+      child: widget.column.enableColumnDrag
+          ? _DraggableWidget(
+              stateManager: stateManager,
+              column: widget.column,
+              child: columnWidget,
+            )
+          : columnWidget,
     );
   }
 }
@@ -388,19 +413,8 @@ class _ColumnWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DragTarget<PlutoColumn>(
-      onWillAccept: (PlutoColumn? columnToDrag) {
-        return columnToDrag != null &&
-            columnToDrag.key != column.key &&
-            !stateManager.limitMoveColumn(
-              column: columnToDrag,
-              targetColumn: column,
-            );
-      },
-      onAccept: (PlutoColumn columnToMove) {
-        if (columnToMove.key != column.key) {
-          stateManager.moveColumn(column: columnToMove, targetColumn: column);
-        }
-      },
+      onWillAcceptWithDetails: (details) => acceptColumnToDrag(details.data),
+      onAcceptWithDetails: (details) => acceptColumnToMove(details.data),
       builder: (dragContext, candidate, rejected) {
         final bool noDragTarget = candidate.isEmpty;
 
@@ -455,6 +469,21 @@ class _ColumnWidget extends StatelessWidget {
         );
       },
     );
+  }
+
+  void acceptColumnToMove(PlutoColumn columnToMove) {
+    if (columnToMove.key != column.key) {
+      stateManager.moveColumn(column: columnToMove, targetColumn: column);
+    }
+  }
+
+  bool acceptColumnToDrag(PlutoColumn? columnToDrag) {
+    return columnToDrag != null &&
+        columnToDrag.key != column.key &&
+        !stateManager.limitMoveColumn(
+          column: columnToDrag,
+          targetColumn: column,
+        );
   }
 }
 
