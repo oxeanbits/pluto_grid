@@ -201,6 +201,7 @@ class PlutoGridConfiguration {
 class PlutoGridStyleConfig {
   const PlutoGridStyleConfig({
     this.columnsBackgroundColor,
+    this.columnsBackgroundHoverColor,
     this.columnRowDividerColor,
     this.enableGridBorderShadow = false,
     this.enableColumnBorderVertical = true,
@@ -260,6 +261,7 @@ class PlutoGridStyleConfig {
 
   const PlutoGridStyleConfig.dark({
     this.columnsBackgroundColor,
+    this.columnsBackgroundHoverColor,
     this.columnRowDividerColor,
     this.enableGridBorderShadow = false,
     this.enableColumnBorderVertical = true,
@@ -318,6 +320,8 @@ class PlutoGridStyleConfig {
   });
 
   final Color? columnsBackgroundColor;
+
+  final Color? columnsBackgroundHoverColor;
 
   final Color? columnRowDividerColor;
 

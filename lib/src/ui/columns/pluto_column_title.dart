@@ -208,12 +208,22 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
       ),
     );
 
+    Color? columnColor =
+        stateManager.configuration.style.columnsBackgroundColor;
+
+    Color? columnHoverColor =
+        stateManager.configuration.style.columnsBackgroundHoverColor ??
+            columnColor;
+
     return mouseHouverTitle(
-      Stack(
-        children: [
-          title(columnWidget),
-          if (showContextIcon) buildIcons(contextMenuIcon),
-        ],
+      Container(
+        color: _isHoveringIcon ? columnHoverColor : columnColor,
+        child: Stack(
+          children: [
+            title(columnWidget),
+            if (showContextIcon) buildIcons(contextMenuIcon),
+          ],
+        ),
       ),
     );
   }
