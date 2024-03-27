@@ -8,7 +8,7 @@ void main() {
 
   late PlutoKeyManagerEvent? keyManagerEvent;
 
-  KeyEventResult callback(FocusNode node, KeyEvent event) {
+  KeyEventResult callback(FocusNode node, RawKeyEvent event) {
     keyManagerEvent = PlutoKeyManagerEvent(
       focusNode: node,
       event: event,
@@ -28,12 +28,12 @@ void main() {
 
   Future<void> buildWidget({
     required WidgetTester tester,
-    required KeyEventResult Function(FocusNode, KeyEvent) callback,
+    required KeyEventResult Function(FocusNode, RawKeyEvent) callback,
   }) async {
     await tester.pumpWidget(MaterialApp(
       home: FocusScope(
         autofocus: true,
-        onKeyEvent: callback,
+        onKey: callback,
         child: Focus(
           focusNode: focusNode,
           child: const SizedBox(width: 100, height: 100),
@@ -62,7 +62,7 @@ void main() {
     (tester) async {
       late PlutoKeyManagerEvent keyManagerEvent;
 
-      KeyEventResult callback(FocusNode node, KeyEvent event) {
+      KeyEventResult callback(FocusNode node, RawKeyEvent event) {
         keyManagerEvent = PlutoKeyManagerEvent(
           focusNode: node,
           event: event,
