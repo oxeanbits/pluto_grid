@@ -146,11 +146,14 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
       descendingIcon: style.columnDescendingIcon,
     );
 
-    Widget iconButton = IconButton(
-      icon: icon,
-      iconSize: style.iconSize,
-      mouseCursor: SystemMouseCursors.click,
-      onPressed: null,
+    Widget iconButton = Visibility(
+      visible: isSortingIcon() || leadingIcon == null,
+      child: IconButton(
+        icon: icon,
+        iconSize: style.iconSize,
+        mouseCursor: SystemMouseCursors.click,
+        onPressed: null,
+      ),
     );
 
     Widget dragging = MouseRegion(
@@ -162,7 +165,7 @@ class PlutoColumnTitleState extends PlutoStateWithChange<PlutoColumnTitle> {
     bool isViewNormal =
         stateManager.configuration.style.columnIconViewType.isNormal;
 
-    bool alwaysShow = isViewNormal || isSortingIcon();
+    bool alwaysShow = isViewNormal || isSortingIcon() || leadingIcon != null;
 
     return Visibility(
       visible: _isHoveringIcon || alwaysShow,
