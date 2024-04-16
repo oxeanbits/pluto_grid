@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pluto_grid/pluto_grid.dart';
@@ -18,6 +20,7 @@ class PlutoGridShortcut {
       _actions ?? defaultActions;
 
   final Map<ShortcutActivator, PlutoGridShortcutAction>? _actions;
+  final LogicalKeyboardKey trigger = LogicalKeyboardKey.newKey;
 
   /// If the shortcut registered in [actions] matches,
   /// the action for the shortcut is executed.
@@ -29,7 +32,12 @@ class PlutoGridShortcut {
     required PlutoGridStateManager stateManager,
     required HardwareKeyboard state,
   }) {
+    print("Tecla: ${keyEvent.isMoving}");
     for (final action in actions.entries) {
+      //Irei buscar aqui
+      log("Teclado: ${action.key.accepts(keyEvent.event, state)}");
+      log((keyEvent.event is! KeyDownEvent).toString());
+      log((keyEvent.event is! KeyRepeatEvent).toString());
       if (action.key.accepts(keyEvent.event, state)) {
         action.value.execute(keyEvent: keyEvent, stateManager: stateManager);
         return true;
@@ -37,6 +45,24 @@ class PlutoGridShortcut {
     }
 
     return false;
+  }
+
+  @override
+  Iterable<LogicalKeyboardKey> get triggers {
+    return <LogicalKeyboardKey>[trigger];
+  }
+
+  @override
+  bool myAccepts(KeyEvent event, HardwareKeyboard state) {
+    print('Entrou: ');
+    print(event is! KeyDownEvent);
+    print(event is! KeyRepeatEvent);
+    print(triggers.contains(event.logicalKey));
+
+    if (event is! KeyDownEvent && event is! KeyRepeatEvent) {
+      return false;
+    }
+    return triggers.contains(event.logicalKey);
   }
 
   static final Map<ShortcutActivator, PlutoGridShortcutAction> defaultActions =
