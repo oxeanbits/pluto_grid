@@ -32,37 +32,32 @@ class PlutoGridShortcut {
     required PlutoGridStateManager stateManager,
     required HardwareKeyboard state,
   }) {
-    print("Tecla: ${keyEvent.isMoving}");
+    final ignoreKeys = [
+      LogicalKeyboardKey.numLock,
+      LogicalKeyboardKey.numpad0,
+      LogicalKeyboardKey.numpad1,
+      LogicalKeyboardKey.numpad2,
+      LogicalKeyboardKey.numpad3,
+      LogicalKeyboardKey.numpad4,
+      LogicalKeyboardKey.numpad5,
+      LogicalKeyboardKey.numpad6,
+      LogicalKeyboardKey.numpad7,
+      LogicalKeyboardKey.numpad8,
+      LogicalKeyboardKey.numpad9,
+      LogicalKeyboardKey.numpadEnter,
+    ];
+    if (ignoreKeys.contains(keyEvent.event.logicalKey)) {
+      log(keyEvent.event.logicalKey.toString());
+      return false;
+    }
+
     for (final action in actions.entries) {
-      //Irei buscar aqui
-      log("Teclado: ${action.key.accepts(keyEvent.event, state)}");
-      log((keyEvent.event is! KeyDownEvent).toString());
-      log((keyEvent.event is! KeyRepeatEvent).toString());
       if (action.key.accepts(keyEvent.event, state)) {
         action.value.execute(keyEvent: keyEvent, stateManager: stateManager);
         return true;
       }
     }
-
     return false;
-  }
-
-  @override
-  Iterable<LogicalKeyboardKey> get triggers {
-    return <LogicalKeyboardKey>[trigger];
-  }
-
-  @override
-  bool myAccepts(KeyEvent event, HardwareKeyboard state) {
-    print('Entrou: ');
-    print(event is! KeyDownEvent);
-    print(event is! KeyRepeatEvent);
-    print(triggers.contains(event.logicalKey));
-
-    if (event is! KeyDownEvent && event is! KeyRepeatEvent) {
-      return false;
-    }
-    return triggers.contains(event.logicalKey);
   }
 
   static final Map<ShortcutActivator, PlutoGridShortcutAction> defaultActions =
