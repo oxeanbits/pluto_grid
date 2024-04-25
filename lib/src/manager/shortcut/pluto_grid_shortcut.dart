@@ -20,7 +20,6 @@ class PlutoGridShortcut {
       _actions ?? defaultActions;
 
   final Map<ShortcutActivator, PlutoGridShortcutAction>? _actions;
-  final LogicalKeyboardKey trigger = LogicalKeyboardKey.newKey;
 
   /// If the shortcut registered in [actions] matches,
   /// the action for the shortcut is executed.
@@ -57,6 +56,7 @@ class PlutoGridShortcut {
         return true;
       }
     }
+
     return false;
   }
 
