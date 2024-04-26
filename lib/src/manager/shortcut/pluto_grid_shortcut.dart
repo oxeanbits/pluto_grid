@@ -52,6 +52,7 @@ class PlutoGridShortcut {
 
     for (final action in actions.entries) {
       if (action.key.accepts(keyEvent.event, state)) {
+        log("Passou pelo accepts");
         action.value.execute(keyEvent: keyEvent, stateManager: stateManager);
         return true;
       }
