@@ -45,8 +45,12 @@ class PlutoGridShortcut {
       LogicalKeyboardKey.numpad9,
       LogicalKeyboardKey.numpadEnter,
     ];
+    log(keyEvent.event.logicalKey.toString());
     if (ignoreKeys.contains(keyEvent.event.logicalKey)) {
-      log(keyEvent.event.logicalKey.toString());
+      return false;
+    }
+
+    if (keyEvent.event is! KeyDownEvent && keyEvent.event is! KeyRepeatEvent) {
       return false;
     }
 
