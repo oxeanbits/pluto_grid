@@ -30,6 +30,7 @@ class PlutoGridShortcut {
     required HardwareKeyboard state,
   }) {
     if (keyEvent.event is! KeyDownEvent && keyEvent.event is! KeyRepeatEvent ||
+        keyEvent.isModifierPressed ||
         keyEvent.event.logicalKey == LogicalKeyboardKey.numLock) {
       return false;
     }

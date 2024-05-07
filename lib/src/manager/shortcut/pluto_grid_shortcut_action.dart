@@ -88,18 +88,27 @@ class PlutoGridActionMoveCellFocus extends PlutoGridShortcutAction {
       return;
     }
 
-    stateManager.moveCurrentCell( direction, force: force);
+    stateManager.moveCurrentCell(getDirection(keyEvent) ?? direction,
+        force: force);
   }
 }
 
 PlutoMoveDirection? getDirection(PlutoKeyManagerEvent keyEvent) {
   LogicalKeyboardKey logicalKey = keyEvent.event.logicalKey;
 
-  if (logicalKey == LogicalKeyboardKey.arrowRight) return PlutoMoveDirection.right;
-  if (logicalKey == LogicalKeyboardKey.arrowLeft) return PlutoMoveDirection.left;
-  if (logicalKey == LogicalKeyboardKey.arrowUp) return PlutoMoveDirection.up;
-  if (logicalKey == LogicalKeyboardKey.arrowDown) return PlutoMoveDirection.down;
-  return null;  
+  if (logicalKey == LogicalKeyboardKey.arrowRight) {
+    return PlutoMoveDirection.right;
+  }
+  if (logicalKey == LogicalKeyboardKey.arrowLeft) {
+    return PlutoMoveDirection.left;
+  }
+  if (logicalKey == LogicalKeyboardKey.arrowUp) {
+    return PlutoMoveDirection.up;
+  }
+  if (logicalKey == LogicalKeyboardKey.arrowDown) {
+    return PlutoMoveDirection.down;
+  }
+  return null;
 }
 
 /// {@template pluto_grid_action_move_selected_cell_focus}
