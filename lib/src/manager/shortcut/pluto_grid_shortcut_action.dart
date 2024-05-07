@@ -88,7 +88,7 @@ class PlutoGridActionMoveCellFocus extends PlutoGridShortcutAction {
       return;
     }
 
-    stateManager.moveCurrentCell(getDirection(keyEvent) ?? direction, force: force);
+    stateManager.moveCurrentCell( direction, force: force);
   }
 }
 
