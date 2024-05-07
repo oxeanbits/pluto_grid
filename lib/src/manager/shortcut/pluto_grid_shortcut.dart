@@ -36,7 +36,7 @@ class PlutoGridShortcut {
     }
 
     for (final action in actions.entries) {
-      if (keyEvent.event is KeyDownEvent) {
+      if (action.key.triggers?.contains(keyEvent.event.logicalKey) ?? false) {
         action.value.execute(keyEvent: keyEvent, stateManager: stateManager);
         return true;
       }
