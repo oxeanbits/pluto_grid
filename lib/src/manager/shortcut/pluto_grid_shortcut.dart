@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pluto_grid/pluto_grid.dart';
@@ -31,32 +29,13 @@ class PlutoGridShortcut {
     required PlutoGridStateManager stateManager,
     required HardwareKeyboard state,
   }) {
-    final ignoreKeys = [
-      LogicalKeyboardKey.numLock,
-      LogicalKeyboardKey.numpad0,
-      LogicalKeyboardKey.numpad1,
-      LogicalKeyboardKey.numpad2,
-      LogicalKeyboardKey.numpad3,
-      LogicalKeyboardKey.numpad4,
-      LogicalKeyboardKey.numpad5,
-      LogicalKeyboardKey.numpad6,
-      LogicalKeyboardKey.numpad7,
-      LogicalKeyboardKey.numpad8,
-      LogicalKeyboardKey.numpad9,
-      LogicalKeyboardKey.numpadEnter,
-    ];
-    log(keyEvent.event.logicalKey.toString());
-    if (ignoreKeys.contains(keyEvent.event.logicalKey)) {
-      return false;
-    }
-
-    if (keyEvent.event is! KeyDownEvent && keyEvent.event is! KeyRepeatEvent) {
+    if (keyEvent.event is! KeyDownEvent && keyEvent.event is! KeyRepeatEvent ||
+        keyEvent.event.logicalKey == LogicalKeyboardKey.numLock) {
       return false;
     }
 
     for (final action in actions.entries) {
-      if (action.key.accepts(keyEvent.event, state)) {
-        log("Passou pelo accepts");
+      if (keyEvent.event is KeyDownEvent) {
         action.value.execute(keyEvent: keyEvent, stateManager: stateManager);
         return true;
       }

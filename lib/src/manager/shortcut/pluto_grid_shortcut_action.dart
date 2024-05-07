@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/services.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
@@ -90,8 +88,17 @@ class PlutoGridActionMoveCellFocus extends PlutoGridShortcutAction {
       return;
     }
 
-    stateManager.moveCurrentCell(direction, force: force);
+    stateManager.moveCurrentCell(getDirection(keyEvent), force: force);
   }
+}
+
+PlutoMoveDirection getDirection(PlutoKeyManagerEvent keyEvent) {
+  LogicalKeyboardKey logicalKey = keyEvent.event.logicalKey;
+
+  if (logicalKey == LogicalKeyboardKey.arrowRight) return PlutoMoveDirection.right;
+  if (logicalKey == LogicalKeyboardKey.arrowLeft) return PlutoMoveDirection.left;
+  if (logicalKey == LogicalKeyboardKey.arrowUp) return PlutoMoveDirection.up;
+  return PlutoMoveDirection.down;
 }
 
 /// {@template pluto_grid_action_move_selected_cell_focus}
