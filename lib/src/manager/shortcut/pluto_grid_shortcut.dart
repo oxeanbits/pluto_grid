@@ -29,9 +29,8 @@ class PlutoGridShortcut {
     required PlutoGridStateManager stateManager,
     required HardwareKeyboard state,
   }) {
-    if (keyEvent.event is! KeyDownEvent && keyEvent.event is! KeyRepeatEvent ||
-        keyEvent.isModifierPressed ||
-        keyEvent.event.logicalKey == LogicalKeyboardKey.numLock) {
+    if (keyEvent.event is! KeyRepeatEvent ||
+        keyEvent.isModifierPressed) {
       return false;
     }
 
