@@ -1151,11 +1151,11 @@ void main() {
 
     expect(stateManager!.currentCell!.value, 'headerB1 value 1');
     // editing 상태가 아니면 shift + 방향키 입력 시 셀이 선택 되어야 한다.
-    expect(stateManager!.currentSelectingPosition!.columnIdx, 3);
-    expect(stateManager!.currentSelectingPosition!.rowIdx, 1);
+    expect(stateManager?.currentSelectingPosition?.columnIdx, 3);
+    expect(stateManager?.currentSelectingPosition?.rowIdx, 1);
     // 현재 선택 셀은 이동 되지 않아야 한다.
-    expect(stateManager!.currentCellPosition!.columnIdx, 2);
-    expect(stateManager!.currentCellPosition!.rowIdx, 1);
+    expect(stateManager?.currentCellPosition?.columnIdx, 2);
+    expect(stateManager?.currentCellPosition?.rowIdx, 1);
   });
 
   testWidgets('editing 상태가 아니면, shift + 좌측 방향키 입력 시 셀이 선택 되어야 한다.',
@@ -1204,10 +1204,10 @@ void main() {
 
     expect(stateManager!.currentCell!.value, 'headerB1 value 1');
     // editing 상태가 아니면 shift + 방향키 입력 시 셀이 선택 되어야 한다.
-    expect(stateManager!.currentSelectingPosition!.columnIdx, 1);
-    expect(stateManager!.currentSelectingPosition!.rowIdx, 1);
+    expect(stateManager?.currentSelectingPosition?.columnIdx, 1);
+    expect(stateManager?.currentSelectingPosition?.rowIdx, 1);
     // 현재 선택 셀은 이동 되지 않아야 한다.
-    expect(stateManager!.currentCellPosition!.columnIdx, 2);
+    expect(stateManager!.currentCellPosition?.columnIdx, 2);
     expect(stateManager!.currentCellPosition!.rowIdx, 1);
   });
 

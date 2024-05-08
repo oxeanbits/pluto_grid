@@ -29,19 +29,39 @@ class PlutoGridShortcut {
     required PlutoGridStateManager stateManager,
     required HardwareKeyboard state,
   }) {
-    if (keyEvent.event is! KeyRepeatEvent ||
-        keyEvent.isModifierPressed) {
+    if (keyEvent.event is! KeyRepeatEvent && keyEvent.event is! KeyDownEvent) {
       return false;
     }
 
-    for (final action in actions.entries) {
-      if (action.key.triggers?.contains(keyEvent.event.logicalKey) ?? false) {
+    List<LogicalKeyboardKey> lista = [];
+
+    for (final key in keyEvent.instance.logicalKeysPressed) {
+      if (key.debugName != LogicalKeyboardKey.numLock.debugName) {
+        lista.add(key);
+      }
+    }
+
+    for (final action in actions.entries) {     
+      if (_listsAreEqual(action.key.triggers, lista)) {
         action.value.execute(keyEvent: keyEvent, stateManager: stateManager);
         return true;
       }
     }
-
     return false;
+  }
+
+  bool _listsAreEqual(Iterable<LogicalKeyboardKey>? list1,
+      Iterable<LogicalKeyboardKey>? list2) {
+    if (list1 == null || list2 == null || list1.length != list2.length) {
+      return false; 
+    }
+   
+    for (int i = 0; i < list1.length; i++) {
+      if (list1.elementAt(i) != list2.elementAt(i)) {
+        return false; 
+      }
+    }
+    return true; 
   }
 
   static final Map<ShortcutActivator, PlutoGridShortcutAction> defaultActions =
@@ -56,13 +76,21 @@ class PlutoGridShortcut {
     LogicalKeySet(LogicalKeyboardKey.arrowDown):
         const PlutoGridActionMoveCellFocus(PlutoMoveDirection.down),
     // Move selected cell focus
-    LogicalKeySet(LogicalKeyboardKey.shift, LogicalKeyboardKey.arrowLeft):
+    LogicalKeySet(LogicalKeyboardKey.shiftLeft, LogicalKeyboardKey.arrowLeft):
         const PlutoGridActionMoveSelectedCellFocus(PlutoMoveDirection.left),
-    LogicalKeySet(LogicalKeyboardKey.shift, LogicalKeyboardKey.arrowRight):
+    LogicalKeySet(LogicalKeyboardKey.shiftLeft, LogicalKeyboardKey.arrowRight):
         const PlutoGridActionMoveSelectedCellFocus(PlutoMoveDirection.right),
-    LogicalKeySet(LogicalKeyboardKey.shift, LogicalKeyboardKey.arrowUp):
+    LogicalKeySet(LogicalKeyboardKey.shiftLeft, LogicalKeyboardKey.arrowUp):
         const PlutoGridActionMoveSelectedCellFocus(PlutoMoveDirection.up),
-    LogicalKeySet(LogicalKeyboardKey.shift, LogicalKeyboardKey.arrowDown):
+    LogicalKeySet(LogicalKeyboardKey.shiftLeft, LogicalKeyboardKey.arrowDown):
+        const PlutoGridActionMoveSelectedCellFocus(PlutoMoveDirection.down),
+            LogicalKeySet(LogicalKeyboardKey.shiftRight, LogicalKeyboardKey.arrowLeft):
+        const PlutoGridActionMoveSelectedCellFocus(PlutoMoveDirection.left),
+    LogicalKeySet(LogicalKeyboardKey.shiftRight, LogicalKeyboardKey.arrowRight):
+        const PlutoGridActionMoveSelectedCellFocus(PlutoMoveDirection.right),
+    LogicalKeySet(LogicalKeyboardKey.shiftRight, LogicalKeyboardKey.arrowUp):
+        const PlutoGridActionMoveSelectedCellFocus(PlutoMoveDirection.up),
+    LogicalKeySet(LogicalKeyboardKey.shiftRight, LogicalKeyboardKey.arrowDown):
         const PlutoGridActionMoveSelectedCellFocus(PlutoMoveDirection.down),
     // Move cell focus by page vertically
     LogicalKeySet(LogicalKeyboardKey.pageUp):

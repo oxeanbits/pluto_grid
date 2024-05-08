@@ -124,8 +124,19 @@ class PlutoGridActionMoveSelectedCellFocus extends PlutoGridShortcutAction {
     required PlutoGridStateManager stateManager,
   }) {
     if (stateManager.isEditing == true) return;
-
     stateManager.moveSelectingCell(direction);
+  }
+}
+
+class PlutoGridActionMoveSelectedCellShift extends PlutoGridShortcutAction {
+  const PlutoGridActionMoveSelectedCellShift();
+
+  @override
+  void execute({
+    required PlutoKeyManagerEvent keyEvent,
+    required PlutoGridStateManager stateManager,
+  }) {
+    if (stateManager.isEditing == true) return;
   }
 }
 
