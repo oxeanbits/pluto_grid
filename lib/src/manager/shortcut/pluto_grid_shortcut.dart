@@ -33,16 +33,17 @@ class PlutoGridShortcut {
       return false;
     }
 
-    List<LogicalKeyboardKey> lista = [];
+    List<LogicalKeyboardKey> pressedKeys = [];
 
     for (final key in keyEvent.instance.logicalKeysPressed) {
-      if (notHasModifiers(key.debugName)) {
-        lista.add(key);
+      if (key.debugName != LogicalKeyboardKey.numLock.debugName) {
+        pressedKeys.add(key);
       }
     }
 
     for (final action in actions.entries) {
-      if (_listsAreEqual(action.key.triggers, lista)) {
+      if (listsAreEqual(action.key.triggers, pressedKeys) ||
+          action.key.accepts(keyEvent.event, state)) {
         action.value.execute(keyEvent: keyEvent, stateManager: stateManager);
         return true;
       }
@@ -50,22 +51,18 @@ class PlutoGridShortcut {
     return false;
   }
 
-  bool _listsAreEqual(Iterable<LogicalKeyboardKey>? list1,
-      Iterable<LogicalKeyboardKey>? list2) {
-    if (list1 == null || list2 == null || list1.length != list2.length) {
+  bool listsAreEqual(Iterable<LogicalKeyboardKey>? triggers,
+      Iterable<LogicalKeyboardKey>? pressedKeys) {
+    if (triggers == null ||
+        pressedKeys == null ||
+        triggers.length != pressedKeys.length) {
       return false;
     }
 
-    for (int i = 0; i < list1.length; i++) {
-      if (list1.elementAt(i) != list2.elementAt(i)) {
-        return false;
-      }
+    for (int i = 0; i < triggers.length; i++) {
+      if (triggers.elementAt(i) != pressedKeys.elementAt(i)) return false;
     }
     return true;
-  }
-
-  bool notHasModifiers(String? debugName) {
-    return debugName != LogicalKeyboardKey.numLock.debugName;
   }
 
   static final Map<ShortcutActivator, PlutoGridShortcutAction> defaultActions =
@@ -113,9 +110,13 @@ class PlutoGridShortcut {
         const PlutoGridActionMoveSelectedCellFocusByPage(
             PlutoMoveDirection.down),
     // Move page when pagination is enabled
-    LogicalKeySet(LogicalKeyboardKey.alt, LogicalKeyboardKey.pageUp):
+    LogicalKeySet(LogicalKeyboardKey.altLeft, LogicalKeyboardKey.pageUp):
         const PlutoGridActionMoveCellFocusByPage(PlutoMoveDirection.left),
-    LogicalKeySet(LogicalKeyboardKey.alt, LogicalKeyboardKey.pageDown):
+    LogicalKeySet(LogicalKeyboardKey.altLeft, LogicalKeyboardKey.pageDown):
+        const PlutoGridActionMoveCellFocusByPage(PlutoMoveDirection.right),
+    LogicalKeySet(LogicalKeyboardKey.altRight, LogicalKeyboardKey.pageUp):
+        const PlutoGridActionMoveCellFocusByPage(PlutoMoveDirection.left),
+    LogicalKeySet(LogicalKeyboardKey.altRight, LogicalKeyboardKey.pageDown):
         const PlutoGridActionMoveCellFocusByPage(PlutoMoveDirection.right),
     // Default tab key action
     LogicalKeySet(LogicalKeyboardKey.tab): const PlutoGridActionDefaultTab(),
