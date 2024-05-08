@@ -92,24 +92,6 @@ class PlutoGridActionMoveCellFocus extends PlutoGridShortcutAction {
   }
 }
 
-PlutoMoveDirection? getDirection(PlutoKeyManagerEvent keyEvent) {
-  LogicalKeyboardKey logicalKey = keyEvent.event.logicalKey;
-
-  if (logicalKey == LogicalKeyboardKey.arrowRight) {
-    return PlutoMoveDirection.right;
-  }
-  if (logicalKey == LogicalKeyboardKey.arrowLeft) {
-    return PlutoMoveDirection.left;
-  }
-  if (logicalKey == LogicalKeyboardKey.arrowUp) {
-    return PlutoMoveDirection.up;
-  }
-  if (logicalKey == LogicalKeyboardKey.arrowDown) {
-    return PlutoMoveDirection.down;
-  }
-  return null;
-}
-
 /// {@template pluto_grid_action_move_selected_cell_focus}
 /// Moves the selected focus in the [direction] direction in the cell or row selection state.
 /// {@endtemplate}
@@ -124,19 +106,8 @@ class PlutoGridActionMoveSelectedCellFocus extends PlutoGridShortcutAction {
     required PlutoGridStateManager stateManager,
   }) {
     if (stateManager.isEditing == true) return;
+
     stateManager.moveSelectingCell(direction);
-  }
-}
-
-class PlutoGridActionMoveSelectedCellShift extends PlutoGridShortcutAction {
-  const PlutoGridActionMoveSelectedCellShift();
-
-  @override
-  void execute({
-    required PlutoKeyManagerEvent keyEvent,
-    required PlutoGridStateManager stateManager,
-  }) {
-    if (stateManager.isEditing == true) return;
   }
 }
 
