@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pluto_grid/pluto_grid.dart';
@@ -39,7 +37,6 @@ class PlutoGridShortcut {
 
     for (final key in keyEvent.instance.logicalKeysPressed) {
       if (key.debugName != LogicalKeyboardKey.numLock.debugName) {
-        log(key.toString());
         pressedKeys.add(key);
       }
     }
@@ -47,8 +44,6 @@ class PlutoGridShortcut {
     for (final action in actions.entries) {
       if (listsAreEqual(action.key.triggers, pressedKeys) ||
           action.key.accepts(keyEvent.event, state)) {
-            log("ListsAreEqual: ${listsAreEqual(action.key.triggers, pressedKeys)}");
-            log("Accepts: ${action.key.accepts(keyEvent.event, state)}");
         action.value.execute(keyEvent: keyEvent, stateManager: stateManager);
         return true;
       }
