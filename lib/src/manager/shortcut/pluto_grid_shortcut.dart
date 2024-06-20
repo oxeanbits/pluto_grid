@@ -31,13 +31,14 @@ class PlutoGridShortcut {
     required PlutoGridStateManager stateManager,
     required HardwareKeyboard state,
   }) {
-    log("Start");
+    print("Start");
     if (keyEvent.event is! KeyRepeatEvent && keyEvent.event is! KeyDownEvent) {
       return false;
     }
 
     List<LogicalKeyboardKey> pressedKeys = [];
-    log(keyEvent.instance.logicalKeysPressed.toString());
+    print(
+        "Tecla precionada: ${keyEvent.instance.logicalKeysPressed.first.keyLabel}");
     for (final key in keyEvent.instance.logicalKeysPressed) {
       if (key.debugName != LogicalKeyboardKey.numLock.debugName) {
         pressedKeys.add(key);
@@ -47,11 +48,12 @@ class PlutoGridShortcut {
     for (final action in actions.entries) {
       if (listsAreEqual(action.key.triggers, pressedKeys) ||
           action.key.accepts(keyEvent.event, state)) {
-        log("Meets some conditional: ");
-        log("listsAreEqual ${listsAreEqual(action.key.triggers, pressedKeys)}");
-        log("accepts: ${action.key.accepts(keyEvent.event, state)} ");
+        print("Meets some conditional: ");
+        print(
+            "listsAreEqual ${listsAreEqual(action.key.triggers, pressedKeys)}");
+        print("accepts: ${action.key.accepts(keyEvent.event, state)} ");
         action.value.execute(keyEvent: keyEvent, stateManager: stateManager);
-        
+
         return true;
       }
     }
