@@ -46,6 +46,7 @@ class PlutoGridShortcut {
     }
 
     for (final action in actions.entries) {
+      log("Action: ${action.key.triggers}");
       if (listsAreEqual(action.key.triggers, pressedKeys) ||
           action.key.accepts(keyEvent.event, state)) {
         print("Meets some conditional: ");
@@ -67,7 +68,8 @@ class PlutoGridShortcut {
         triggers.length != pressedKeys.length) {
       return false;
     }
-
+    print("Trig: $triggers");
+    print("Pressed: $pressedKeys");
     for (int i = 0; i < triggers.length; i++) {
       if (triggers.elementAt(i) != pressedKeys.elementAt(i)) return false;
     }
