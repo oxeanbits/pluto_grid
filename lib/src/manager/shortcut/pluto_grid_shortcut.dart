@@ -47,6 +47,8 @@ class PlutoGridShortcut {
       }
     }
 
+    log("Actions: ${actions.length}");
+
     for (final action in actions.entries) {
       log("Action: ${action.key.triggers}");
       if (listsAreEqual(action.key.triggers, pressedKeys) ||
