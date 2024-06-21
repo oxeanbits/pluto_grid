@@ -50,13 +50,15 @@ class PlutoGridShortcut {
     print("Actions: ${actions.entries.length}");
 
     for (final action in actions.entries) {
-      print("Action: ${action.key.triggers}");
+      print("Triggers Length: ${action.key.triggers?.length}");
+      print("pressedKeys length: ${pressedKeys.length}");
+      print("Triggers: ${action.key.triggers?.map((e) => e.debugName).join(", ")}");
+      print("PressedKeys: ${pressedKeys.map((e) => e.debugName).join(", ")}");
+      print("listsAreEqual ${listsAreEqual(action.key.triggers, pressedKeys)}");
+      print("accepts: ${action.key.accepts(keyEvent.event, state)} ");
       if (listsAreEqual(action.key.triggers, pressedKeys) ||
           action.key.accepts(keyEvent.event, state)) {
-        print("Meets some conditional: ");
-        print(
-            "listsAreEqual ${listsAreEqual(action.key.triggers, pressedKeys)}");
-        print("accepts: ${action.key.accepts(keyEvent.event, state)} ");
+        print("Meets some conditional: action.value.execute");
         action.value.execute(keyEvent: keyEvent, stateManager: stateManager);
 
         return true;
