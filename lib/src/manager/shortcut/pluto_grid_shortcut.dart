@@ -47,10 +47,10 @@ class PlutoGridShortcut {
       }
     }
 
-    log("Actions: ${actions.length}");
+    print("Actions: ${actions.length}");
 
     for (final action in actions.entries) {
-      log("Action: ${action.key.triggers}");
+      print("Action: ${action.key.triggers}");
       if (listsAreEqual(action.key.triggers, pressedKeys) ||
           action.key.accepts(keyEvent.event, state)) {
         print("Meets some conditional: ");
