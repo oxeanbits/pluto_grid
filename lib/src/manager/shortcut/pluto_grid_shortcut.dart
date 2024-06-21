@@ -47,7 +47,7 @@ class PlutoGridShortcut {
       }
     }
 
-    print("Actions: ${actions.length}");
+    print("Actions: ${actions.entries.length}");
 
     for (final action in actions.entries) {
       print("Action: ${action.key.triggers}");
