@@ -37,8 +37,10 @@ class PlutoGridShortcut {
     }
 
     List<LogicalKeyboardKey> pressedKeys = [];
-    print(
-        "Tecla precionada: ${keyEvent.instance.logicalKeysPressed.first.keyLabel}");
+    for (var key in keyEvent.instance.logicalKeysPressed) {
+      print("Tecla pressionada: ${key.keyLabel}");
+    }
+
     for (final key in keyEvent.instance.logicalKeysPressed) {
       if (key.debugName != LogicalKeyboardKey.numLock.debugName) {
         pressedKeys.add(key);
