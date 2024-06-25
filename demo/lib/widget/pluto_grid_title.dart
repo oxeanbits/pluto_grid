@@ -24,7 +24,7 @@ class PlutoGridTitle extends StatelessWidget {
             style: TextStyle(
               fontSize: fontSize,
               fontWeight: FontWeight.bold,
-              color: Colors.red,
+              color: Colors.white,
             ),
           ),
         ],

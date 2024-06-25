@@ -45,7 +45,6 @@ class PlutoGridShortcut {
       if (listsAreEqual(action.key.triggers, pressedKeys) ||
           action.key.accepts(keyEvent.event, state)) {
         action.value.execute(keyEvent: keyEvent, stateManager: stateManager);
-
         return true;
       }
     }
@@ -59,6 +58,7 @@ class PlutoGridShortcut {
         triggers.length != pressedKeys.length) {
       return false;
     }
+
     for (int i = 0; i < triggers.length; i++) {
       if (triggers.elementAt(i) != pressedKeys.elementAt(i)) return false;
     }
