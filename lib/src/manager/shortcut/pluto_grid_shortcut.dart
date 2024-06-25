@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pluto_grid/pluto_grid.dart';
@@ -31,35 +29,21 @@ class PlutoGridShortcut {
     required PlutoGridStateManager stateManager,
     required HardwareKeyboard state,
   }) {
-    print("Start");
     if (keyEvent.event is! KeyRepeatEvent && keyEvent.event is! KeyDownEvent) {
       return false;
     }
 
     List<LogicalKeyboardKey> pressedKeys = [];
-    for (var key in keyEvent.instance.logicalKeysPressed) {
-      print("Tecla pressionada: ${key.keyLabel}");
-    }
 
     for (final key in keyEvent.instance.logicalKeysPressed) {
-      if (key.debugName != LogicalKeyboardKey.numLock.debugName) {
+      if (key.keyId != LogicalKeyboardKey.numLock.keyId) {
         pressedKeys.add(key);
       }
     }
 
-    print("Tamanho Actions: ${actions.entries.length}");
-
     for (final action in actions.entries) {
-      print("Triggers Length: ${action.key.triggers?.length}");
-      print("pressedKeys length: ${pressedKeys.length}");
-      print(
-          "Triggers: ${action.key.triggers?.map((e) => e.debugName).join(", ")}");
-      print("PressedKeys: ${pressedKeys.map((e) => e.debugName).join(", ")}");
-      print("listsAreEqual ${listsAreEqual(action.key.triggers, pressedKeys)}");
-      print("accepts: ${action.key.accepts(keyEvent.event, state)} ");
       if (listsAreEqual(action.key.triggers, pressedKeys) ||
           action.key.accepts(keyEvent.event, state)) {
-        print("Meets some conditional: action.value.execute");
         action.value.execute(keyEvent: keyEvent, stateManager: stateManager);
 
         return true;
@@ -75,8 +59,6 @@ class PlutoGridShortcut {
         triggers.length != pressedKeys.length) {
       return false;
     }
-    print("Trig: $triggers");
-    print("Pressed: $pressedKeys");
     for (int i = 0; i < triggers.length; i++) {
       if (triggers.elementAt(i) != pressedKeys.elementAt(i)) return false;
     }
