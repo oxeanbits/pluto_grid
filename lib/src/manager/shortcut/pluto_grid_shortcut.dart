@@ -47,12 +47,13 @@ class PlutoGridShortcut {
       }
     }
 
-    print("Actions: ${actions.entries.length}");
+    print("Tamanho Actions: ${actions.entries.length}");
 
     for (final action in actions.entries) {
       print("Triggers Length: ${action.key.triggers?.length}");
       print("pressedKeys length: ${pressedKeys.length}");
-      print("Triggers: ${action.key.triggers?.map((e) => e.debugName).join(", ")}");
+      print(
+          "Triggers: ${action.key.triggers?.map((e) => e.debugName).join(", ")}");
       print("PressedKeys: ${pressedKeys.map((e) => e.debugName).join(", ")}");
       print("listsAreEqual ${listsAreEqual(action.key.triggers, pressedKeys)}");
       print("accepts: ${action.key.accepts(keyEvent.event, state)} ");
