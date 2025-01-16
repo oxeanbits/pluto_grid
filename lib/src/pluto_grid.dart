@@ -92,6 +92,7 @@ class PlutoGrid extends PlutoStatefulWidget {
     this.configuration = const PlutoGridConfiguration(),
     this.notifierFilterResolver,
     this.mode = PlutoGridMode.normal,
+    this.customShortcutEvent,
   });
 
   /// {@template pluto_grid_property_columns}
