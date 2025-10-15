@@ -680,7 +680,7 @@ class PlutoGridState extends PlutoStateWithChange<PlutoGrid> {
                 /// Body columns and rows.
                 LayoutId(
                   id: _StackName.bodyRows,
-                  child: PlutoBodyRows(_stateManager),
+                  child: PlutoBodyRowsWithScrollbar(_stateManager),
                 ),
                 LayoutId(
                   id: _StackName.bodyColumns,
