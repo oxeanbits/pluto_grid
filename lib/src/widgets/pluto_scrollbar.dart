@@ -584,15 +584,14 @@ class PlutoGridCupertinoScrollbarState extends State<PlutoScrollbar>
 
     Widget child = widget.child;
 
-    final double rightPadding =
-        hasVerticalScrollbar ? widget.hoverWidth : 0.0;
+    final double endPadding = hasVerticalScrollbar ? widget.hoverWidth : 0.0;
     final double bottomPadding =
         hasHorizontalScrollbar ? widget.hoverWidth : 0.0;
 
-    if (rightPadding > 0 || bottomPadding > 0) {
+    if (endPadding > 0 || bottomPadding > 0) {
       child = Padding(
-        padding: EdgeInsets.only(
-          right: rightPadding,
+        padding: EdgeInsetsDirectional.only(
+          end: endPadding,
           bottom: bottomPadding,
         ),
         child: child,

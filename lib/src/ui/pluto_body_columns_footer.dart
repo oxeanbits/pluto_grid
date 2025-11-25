@@ -73,7 +73,9 @@ class PlutoBodyColumnsFooterState
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    final scrollbarConfig = stateManager.configuration.scrollbar;
+
+    Widget footer = SingleChildScrollView(
       controller: _scroll,
       scrollDirection: Axis.horizontal,
       physics: const ClampingScrollPhysics(),
@@ -88,6 +90,17 @@ class PlutoBodyColumnsFooterState
         children: _columns.map(_makeFooter).toList(growable: false),
       ),
     );
+
+    if (scrollbarConfig.draggableScrollbar) {
+      footer = Padding(
+        padding: EdgeInsetsDirectional.only(
+          end: scrollbarConfig.hoverWidth,
+        ),
+        child: footer,
+      );
+    }
+
+    return footer;
   }
 }
 
