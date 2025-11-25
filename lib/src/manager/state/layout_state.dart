@@ -89,10 +89,6 @@ abstract class ILayoutState {
 
   double get scrollOffsetByFrozenColumn;
 
-  bool get needsVerticalScrollbarSpace;
-
-  bool get needsHorizontalScrollbarSpace;
-
   TextDirection get textDirection;
 
   bool get isLTR;
@@ -387,39 +383,6 @@ mixin LayoutState implements IPlutoGridState {
     }
 
     return offset;
-  }
-
-  @override
-  bool get needsVerticalScrollbarSpace {
-    if (maxHeight == null) {
-      return false;
-    }
-
-    final double availableHeight =
-        rowContainerHeight - columnFooterHeight;
-
-    if (availableHeight <= 0) {
-      return false;
-    }
-
-    final double totalRowsHeight = refRows.length * rowTotalHeight;
-
-    return totalRowsHeight > availableHeight;
-  }
-
-  @override
-  bool get needsHorizontalScrollbarSpace {
-    if (maxWidth == null) {
-      return false;
-    }
-
-    final double availableWidth = maxWidth! - bodyLeftOffset - bodyRightOffset;
-
-    if (availableWidth <= 0) {
-      return false;
-    }
-
-    return bodyColumnsWidth > availableWidth;
   }
 
   @override

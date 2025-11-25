@@ -128,8 +128,7 @@ class PlutoBodyColumnsState extends PlutoStateWithChange<PlutoBodyColumns> {
       ),
     );
 
-    if (scrollbarConfig.draggableScrollbar &&
-        stateManager.needsVerticalScrollbarSpace) {
+    if (scrollbarConfig.draggableScrollbar) {
       header = Padding(
         padding: EdgeInsetsDirectional.only(
           end: scrollbarConfig.hoverWidth,

@@ -71,51 +71,6 @@ class PlutoBodyRowsState extends PlutoStateWithChange<PlutoBodyRows> {
   Widget build(BuildContext context) {
     final scrollbarConfig = stateManager.configuration.scrollbar;
 
-    final bool reserveVerticalSpace =
-        scrollbarConfig.draggableScrollbar &&
-            stateManager.needsVerticalScrollbarSpace;
-
-    final bool reserveHorizontalSpace =
-        scrollbarConfig.draggableScrollbar &&
-            stateManager.needsHorizontalScrollbarSpace;
-
-    Widget content = SingleChildScrollView(
-      controller: _horizontalScroll,
-      scrollDirection: Axis.horizontal,
-      physics: const ClampingScrollPhysics(),
-      child: CustomSingleChildLayout(
-        delegate: ListResizeDelegate(stateManager, _columns),
-        child: ListView.builder(
-          controller: _verticalScroll,
-          scrollDirection: Axis.vertical,
-          physics: const ClampingScrollPhysics(),
-          itemCount: _rows.length,
-          itemExtent: stateManager.rowTotalHeight,
-          addRepaintBoundaries: false,
-          itemBuilder: (ctx, i) {
-            return PlutoBaseRow(
-              key: ValueKey('body_row_${_rows[i].key}'),
-              rowIdx: i,
-              row: _rows[i],
-              columns: _columns,
-              stateManager: stateManager,
-              visibilityLayout: true,
-            );
-          },
-        ),
-      ),
-    );
-
-    if (reserveVerticalSpace || reserveHorizontalSpace) {
-      content = Padding(
-        padding: EdgeInsetsDirectional.only(
-          end: reserveVerticalSpace ? scrollbarConfig.hoverWidth : 0,
-          bottom: reserveHorizontalSpace ? scrollbarConfig.hoverWidth : 0,
-        ),
-        child: content,
-      );
-    }
-
     return PlutoScrollbar(
       verticalController:
           scrollbarConfig.draggableScrollbar ? _verticalScroll : null,
@@ -135,7 +90,32 @@ class PlutoBodyRowsState extends PlutoStateWithChange<PlutoBodyRows> {
       radius: scrollbarConfig.scrollbarRadius,
       radiusWhileDragging: scrollbarConfig.scrollbarRadiusWhileDragging,
       longPressDuration: scrollbarConfig.longPressDuration,
-      child: content,
+      child: SingleChildScrollView(
+        controller: _horizontalScroll,
+        scrollDirection: Axis.horizontal,
+        physics: const ClampingScrollPhysics(),
+        child: CustomSingleChildLayout(
+          delegate: ListResizeDelegate(stateManager, _columns),
+          child: ListView.builder(
+            controller: _verticalScroll,
+            scrollDirection: Axis.vertical,
+            physics: const ClampingScrollPhysics(),
+            itemCount: _rows.length,
+            itemExtent: stateManager.rowTotalHeight,
+            addRepaintBoundaries: false,
+            itemBuilder: (ctx, i) {
+              return PlutoBaseRow(
+                key: ValueKey('body_row_${_rows[i].key}'),
+                rowIdx: i,
+                row: _rows[i],
+                columns: _columns,
+                stateManager: stateManager,
+                visibilityLayout: true,
+              );
+            },
+          ),
+        ),
+      ),
     );
   }
 }
