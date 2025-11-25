@@ -91,7 +91,8 @@ class PlutoBodyColumnsFooterState
       ),
     );
 
-    if (scrollbarConfig.draggableScrollbar) {
+    if (scrollbarConfig.draggableScrollbar &&
+        stateManager.needsVerticalScrollbarSpace) {
       footer = Padding(
         padding: EdgeInsetsDirectional.only(
           end: scrollbarConfig.hoverWidth,
