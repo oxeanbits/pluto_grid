@@ -89,6 +89,10 @@ abstract class ILayoutState {
 
   double get scrollOffsetByFrozenColumn;
 
+  bool get needsVerticalScrollbarSpace;
+
+  bool get needsHorizontalScrollbarSpace;
+
   TextDirection get textDirection;
 
   bool get isLTR;

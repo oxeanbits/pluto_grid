@@ -90,6 +90,10 @@ class PlutoBodyRowsState extends PlutoStateWithChange<PlutoBodyRows> {
       radius: scrollbarConfig.scrollbarRadius,
       radiusWhileDragging: scrollbarConfig.scrollbarRadiusWhileDragging,
       longPressDuration: scrollbarConfig.longPressDuration,
+      reserveSpaceForVerticalScroll: scrollbarConfig.draggableScrollbar &&
+          stateManager.needsVerticalScrollbarSpace,
+      reserveSpaceForHorizontalScroll: scrollbarConfig.draggableScrollbar &&
+          stateManager.needsHorizontalScrollbarSpace,
       child: SingleChildScrollView(
         controller: _horizontalScroll,
         scrollDirection: Axis.horizontal,
