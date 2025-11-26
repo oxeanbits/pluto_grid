@@ -106,7 +106,13 @@ class PlutoBodyColumnsState extends PlutoStateWithChange<PlutoBodyColumns> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    final scrollbarConfig = stateManager.configuration.scrollbar;
+    final bool hasVerticalScrollbar = scrollbarConfig.draggableScrollbar &&
+        stateManager.scroll.bodyRowsVertical != null;
+    final bool hasHorizontalScrollbar = scrollbarConfig.draggableScrollbar &&
+        stateManager.scroll.bodyRowsHorizontal != null;
+
+    Widget child = SingleChildScrollView(
       controller: _scroll,
       scrollDirection: Axis.horizontal,
       physics: const ClampingScrollPhysics(),
@@ -125,6 +131,18 @@ class PlutoBodyColumnsState extends PlutoStateWithChange<PlutoBodyColumns> {
             : _columns.map(_makeColumn).toList(growable: false),
       ),
     );
+
+    if (hasVerticalScrollbar || hasHorizontalScrollbar) {
+      child = Padding(
+        padding: EdgeInsets.only(
+          right: hasVerticalScrollbar ? scrollbarConfig.hoverWidth : 0.0,
+          bottom: hasHorizontalScrollbar ? scrollbarConfig.hoverWidth : 0.0,
+        ),
+        child: child,
+      );
+    }
+
+    return child;
   }
 }
 
