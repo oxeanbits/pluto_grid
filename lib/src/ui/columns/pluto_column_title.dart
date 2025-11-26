@@ -443,9 +443,40 @@ class _ColumnWidget extends StatelessWidget {
     required this.height,
   });
 
-  EdgeInsets get padding =>
-      column.titlePadding ??
-      stateManager.configuration.style.defaultColumnTitlePadding;
+  EdgeInsets get padding {
+    final EdgeInsets basePadding = column.titlePadding ??
+        stateManager.configuration.style.defaultColumnTitlePadding;
+
+    final scrollbarConfig = stateManager.configuration.scrollbar;
+    final bool needsVerticalGap = scrollbarConfig.draggableScrollbar &&
+        stateManager.scroll.bodyRowsVertical != null;
+
+    if (!needsVerticalGap) {
+      return basePadding;
+    }
+
+    final double gap = scrollbarConfig.hoverWidth;
+
+    if (gap <= 0) {
+      return basePadding;
+    }
+
+    if (stateManager.isRTL) {
+      return EdgeInsets.fromLTRB(
+        basePadding.left + gap,
+        basePadding.top,
+        basePadding.right,
+        basePadding.bottom,
+      );
+    }
+
+    return EdgeInsets.fromLTRB(
+      basePadding.left,
+      basePadding.top,
+      basePadding.right + gap,
+      basePadding.bottom,
+    );
+  }
 
   bool get showSizedBoxForIcon =>
       column.isShowRightIcon &&
