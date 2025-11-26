@@ -578,10 +578,31 @@ class PlutoGridCupertinoScrollbarState extends State<PlutoScrollbar>
 
   @override
   Widget build(BuildContext context) {
-    Widget child = CustomPaint(
+    final bool hasVerticalScrollbar = widget.verticalController != null;
+
+    final bool hasHorizontalScrollbar = widget.horizontalController != null;
+
+    Widget child = widget.child;
+
+    final double rightPadding =
+        hasVerticalScrollbar ? widget.hoverWidth : 0.0;
+    final double bottomPadding =
+        hasHorizontalScrollbar ? widget.hoverWidth : 0.0;
+
+    if (rightPadding > 0 || bottomPadding > 0) {
+      child = Padding(
+        padding: EdgeInsets.only(
+          right: rightPadding,
+          bottom: bottomPadding,
+        ),
+        child: child,
+      );
+    }
+
+    child = CustomPaint(
       key: _customPaintKey,
       foregroundPainter: _painter,
-      child: RepaintBoundary(child: widget.child),
+      child: RepaintBoundary(child: child),
     );
 
     if (widget.enableHover) {
