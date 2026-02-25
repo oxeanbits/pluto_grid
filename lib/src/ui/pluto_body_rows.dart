@@ -70,6 +70,8 @@ class PlutoBodyRowsState extends PlutoStateWithChange<PlutoBodyRows> {
   @override
   Widget build(BuildContext context) {
     final scrollbarConfig = stateManager.configuration.scrollbar;
+    final scrollbarSpacer =
+        scrollbarConfig.hoverWidth + scrollbarConfig.crossAxisMargin;
 
     return PlutoScrollbar(
       verticalController:
@@ -90,29 +92,35 @@ class PlutoBodyRowsState extends PlutoStateWithChange<PlutoBodyRows> {
       radius: scrollbarConfig.scrollbarRadius,
       radiusWhileDragging: scrollbarConfig.scrollbarRadiusWhileDragging,
       longPressDuration: scrollbarConfig.longPressDuration,
-      child: SingleChildScrollView(
-        controller: _horizontalScroll,
-        scrollDirection: Axis.horizontal,
-        physics: const ClampingScrollPhysics(),
-        child: CustomSingleChildLayout(
-          delegate: ListResizeDelegate(stateManager, _columns),
-          child: ListView.builder(
-            controller: _verticalScroll,
-            scrollDirection: Axis.vertical,
-            physics: const ClampingScrollPhysics(),
-            itemCount: _rows.length,
-            itemExtent: stateManager.rowTotalHeight,
-            addRepaintBoundaries: false,
-            itemBuilder: (ctx, i) {
-              return PlutoBaseRow(
-                key: ValueKey('body_row_${_rows[i].key}'),
-                rowIdx: i,
-                row: _rows[i],
-                columns: _columns,
-                stateManager: stateManager,
-                visibilityLayout: true,
-              );
-            },
+      child: Padding(
+        padding: EdgeInsets.only(
+          right: scrollbarSpacer,
+          bottom: scrollbarSpacer,
+        ),
+        child: SingleChildScrollView(
+          controller: _horizontalScroll,
+          scrollDirection: Axis.horizontal,
+          physics: const ClampingScrollPhysics(),
+          child: CustomSingleChildLayout(
+            delegate: ListResizeDelegate(stateManager, _columns),
+            child: ListView.builder(
+              controller: _verticalScroll,
+              scrollDirection: Axis.vertical,
+              physics: const ClampingScrollPhysics(),
+              itemCount: _rows.length,
+              itemExtent: stateManager.rowTotalHeight,
+              addRepaintBoundaries: false,
+              itemBuilder: (ctx, i) {
+                return PlutoBaseRow(
+                  key: ValueKey('body_row_${_rows[i].key}'),
+                  rowIdx: i,
+                  row: _rows[i],
+                  columns: _columns,
+                  stateManager: stateManager,
+                  visibilityLayout: true,
+                );
+              },
+            ),
           ),
         ),
       ),
