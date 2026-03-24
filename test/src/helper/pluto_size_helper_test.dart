@@ -146,11 +146,11 @@ void main() {
           mode: mode,
         ).update();
 
-        expect(items[0].size, 100 * scale + 1);
-        expect(items[1].size, 200 * scale + 1);
-        expect(items[2].size, 200 * scale + 1);
-        expect(items[3].size, 100 * scale + 1);
-        expect(items[4].size, 100 * scale + 1);
+        expect(items[0].size, 100 * scale);
+        expect(items[1].size, 200 * scale);
+        expect(items[2].size, 200 * scale);
+        expect(items[3].size, 100 * scale);
+        expect(items[4].size, 100 * scale);
       });
 
       test(
@@ -203,11 +203,32 @@ void main() {
           mode: mode,
         ).update();
 
-        expect(items[0].size, 100 * scale + 1);
+        expect(items[0].size, 100 * scale);
         expect(items[1].size, 120);
-        expect(items[2].size, 130 * scale + 1);
+        expect(items[2].size, 130 * scale);
         expect(items[3].size, 140);
         expect(items[4].size, 150);
+      });
+
+      test('리사이즈 이후 전체 합은 maxSize 와 같아야 한다.', () {
+        final items = [
+          _ResizeItem(index: 0, size: 130, minSize: 50),
+          _ResizeItem(index: 1, size: 220, minSize: 50),
+          _ResizeItem(index: 2, size: 90, minSize: 50),
+        ];
+
+        PlutoAutoSizeHelper.items<_ResizeItem>(
+          maxSize: 500,
+          items: items,
+          isSuppressed: (i) => i.suppressed,
+          getItemSize: (i) => i.size,
+          getItemMinSize: (i) => i.minSize,
+          setItemSize: (i, size) => i.size = size,
+          mode: mode,
+        ).update();
+
+        final total = items.fold<double>(0, (p, e) => p + e.size);
+        expect(total, 500);
       });
     });
   });
