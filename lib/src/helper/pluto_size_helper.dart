@@ -161,8 +161,6 @@ class PlutoAutoSizeScale<T> extends PlutoAutoSize<T> {
 
   @override
   void update() {
-    final length = items.length;
-
     double effectiveMaxSize = maxSize;
 
     double totalWidth = items.fold<double>(0, (p, e) => p += getItemSize(e));
@@ -189,17 +187,39 @@ class PlutoAutoSizeScale<T> extends PlutoAutoSize<T> {
       scale = effectiveMaxSize / totalWidth;
     }
 
-    for (int i = 0; i < length; i += 1) {
-      final item = items.elementAt(i);
+    double currentTotal = 0;
+    T? lastResizableItem;
 
-      if (isSuppressedItem(item)) continue;
+    for (final item in items) {
+      if (isSuppressedItem(item)) {
+        currentTotal += getItemSize(item);
+        continue;
+      }
 
       final minSize = getItemMinSize(item);
-
-      final size = max(minSize, getItemSize(item) * scale + 1);
+      final size = max(minSize, getItemSize(item) * scale);
 
       setItemSize(item, size);
+      currentTotal += size;
+      lastResizableItem = item;
     }
+
+    if (lastResizableItem == null) {
+      return;
+    }
+
+    final remaining = maxSize - currentTotal;
+
+    if (remaining == 0) {
+      return;
+    }
+
+    final currentLastSize = getItemSize(lastResizableItem);
+    final minLastSize = getItemMinSize(lastResizableItem);
+    setItemSize(
+      lastResizableItem,
+      max(minLastSize, currentLastSize + remaining),
+    );
   }
 }
 
