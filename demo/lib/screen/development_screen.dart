@@ -1,4 +1,4 @@
-import 'package:faker/faker.dart';
+import 'package:faker/faker.dart' hide Color, Image;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pluto_grid/pluto_grid.dart';
@@ -95,9 +95,9 @@ class _DevelopmentScreenState extends State<DevelopmentScreen> {
     ),
     // localeText: const PlutoGridLocaleText.korean(),
     columnFilter: PlutoGridColumnFilterConfig(
-      filters: const [
+      filters: [
         ...FilterHelper.defaultFilters,
-        ClassYouImplemented(),
+        const ClassYouImplemented(),
       ],
       resolveDefaultColumnFilter: (column, resolver) {
         if (column.field == 'column3') {
