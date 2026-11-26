@@ -67,6 +67,14 @@ class PlutoBodyRowsState extends PlutoStateWithChange<PlutoBodyRows> {
         : stateManager.columns;
   }
 
+  int? _findRowIndex(Key key) {
+    final rowIndexes = {
+      for (var i = 0; i < _rows.length; i++)
+        ValueKey('body_row_${_rows[i].key}'): i,
+    };
+    return rowIndexes[key];
+  }
+
   @override
   Widget build(BuildContext context) {
     final scrollbarConfig = stateManager.configuration.scrollbar;
@@ -103,6 +111,7 @@ class PlutoBodyRowsState extends PlutoStateWithChange<PlutoBodyRows> {
             itemCount: _rows.length,
             itemExtent: stateManager.rowTotalHeight,
             addRepaintBoundaries: false,
+            findChildIndexCallback: _findRowIndex,
             itemBuilder: (ctx, i) {
               return PlutoBaseRow(
                 key: ValueKey('body_row_${_rows[i].key}'),
