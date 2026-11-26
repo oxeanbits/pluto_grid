@@ -51,6 +51,14 @@ class PlutoLeftFrozenRowsState
     _rows = stateManager.refRows;
   }
 
+  int? _findRowIndex(Key key) {
+    final rowIndexes = {
+      for (var i = 0; i < _rows.length; i++)
+        ValueKey('left_frozen_row_${_rows[i].key}'): i,
+    };
+    return rowIndexes[key];
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -59,6 +67,7 @@ class PlutoLeftFrozenRowsState
       physics: const ClampingScrollPhysics(),
       itemCount: _rows.length,
       itemExtent: stateManager.rowTotalHeight,
+      findChildIndexCallback: _findRowIndex,
       itemBuilder: (ctx, i) {
         return FrozenRow(
           key: ValueKey('left_frozen_row_${_rows[i].key}'),
